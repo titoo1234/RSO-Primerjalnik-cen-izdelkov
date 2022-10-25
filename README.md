@@ -14,5 +14,6 @@ Projekt pri predmetu RSO
 - Pridobivanje podatkov
 - Uporabnik
 - Dodajanje/brisanje
+- Komunikacija z bazo
 
 
