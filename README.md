@@ -1,4 +1,4 @@
-# RSO-Primerjalnik-cen-izdelkov
+# RSO-Primerjalnik cen izdelkov
 Projekt pri predmetu RSO
 
 # Člani:
