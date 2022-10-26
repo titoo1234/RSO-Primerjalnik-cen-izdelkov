@@ -1,0 +1,3 @@
+[console_scripts]
+ephemeral-port-reserve = ephemeral_port_reserve:main
+
