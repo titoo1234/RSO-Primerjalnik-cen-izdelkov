@@ -1,0 +1,41 @@
+Uporabnik:
+    - ID, ime uporabnika, uporab. ime, geslo(zašifrirano), jeAdmin(true/false), naslov,e-naslov, tel. št...kaj še?
+     Kako narediti Admin račun? 
+     narediš navadni račun, En drug uporavnik, ki mora biti ADMIN ti lahko določi funkcjijo da si Admin ali
+     mogoče da vneseš kako licenco???
+     Profil uporabnika-nastavitve
+     to je ena MIKROS., torej ustvarjanje novega uporabnika, administracija?(en amdin uporabnik lahko doleli pravico drugemu uporabniku?)
+
+Dodajanje/brisanje
+
+
+
+Košarica:
+    prikaz izdelkov, (količina)
+    prikaz cene
+    brisanje izdelkov iz košarice
+    oddaja naročila (tukaj se zbrišejo izdelki?)
+Primerjava cen
+	Klikneš izdelek, in ta gre v košarico,
+	izdelek, količino,...ceno
+	doda se v tabelo Košarica ta izdelek, količina, cena, id_uporabnika (če je uporabnik, potem se da 	ID uporabnika, sicer neka instanca od PC al neki...)
+
+
+
+Pridobivanje podatkov
+Katalog
+
+
+
+===============================================
+
+Ko se odpre stran
+    getUser()
+    isAdmin()
+    glede na to a si admin, imaš dosotop do dodajanja/brisanja izdelkov...
+
+
+
+
+
+ 
