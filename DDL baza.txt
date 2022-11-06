@@ -1,0 +1,36 @@
+CREATE TABLE Trgovine (
+    Id  INT PRIMARY KEY IDENTITY,
+    Ime VARCHAR(100)    NOT NULLT
+                UNIQUE
+);
+
+
+CREATE TABLE Kategorije (
+    Id  INT PRIMARY KEY IDENTITY,
+    Ime VARCHAR(100)    NOT NULL
+                UNIQUE
+);
+
+CREATE TABLE Podkategorije (
+    Id         INT PRIMARY KEY IDENTITY,
+    Ime        VARCHAR(100)    NOT NULL,
+    Kategorija INT REFERENCES Kategorije (Id),
+    UNIQUE (
+        Ime,
+        Kategorija
+    )
+);
+
+CREATE TABLE Izdelki (
+    Id            INT PRIMARY KEY IDENTITY,
+    Ime           VARCHAR(100)    NOT NULL,
+    Kategorija    INT REFERENCES Kategorije (Id),
+    Podkategorija INT REFERENCES Podkategorije (Id),
+    Trgovina      INT REFERENCES Trgovine (Id),
+    Cena          DECIMAL NOT NULL,
+    UNIQUE (
+        Ime,
+        Trgovina,
+        Cena
+    )
+);
