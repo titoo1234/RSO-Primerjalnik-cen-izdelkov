@@ -9,6 +9,31 @@ from Models.SQLRepository import SQLRepository
 from textwrap import dedent
 import pyodbc
 from flask_sqlalchemy import SQLAlchemy
+class Trgovine(Resource):
+     def get(self):
+        driver = "{ODBC Driver 17 for SQL Server}"
+        server_name = "primerjava-cen.database.windows.net,1433"
+        db_name = "Primerjava_cen"
+        username = "baza"
+        password = "AdminAdmin1!"
+        conn_str = dedent('''
+            Driver={driver};
+            Server={server_name};
+            Database={db_name};
+            Uid={username};
+            Pwd={password};
+            Encrypt=yes;
+            TrustServerCertificate=no;
+            Connection Timeout=30;
+        '''.format(driver=driver, server_name=server_name, db_name=db_name, username=username, password=password))
+        query = "SELECT * FROM Trgovina"
+        eng = SQLRepository(conn_str)
+        eng.start_conn()
+        result = eng.execute_query(query)
+        eng.close_conn()
+        result = AppResult(True, "", result)
+        return result.toJSON()
+
 
 class Catalog(Resource):
     def get(self):
