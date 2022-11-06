@@ -5,34 +5,82 @@ Uporabnik:
      mogoče da vneseš kako licenco???
      Profil uporabnika-nastavitve
      to je ena MIKROS., torej ustvarjanje novega uporabnika, administracija?(en amdin uporabnik lahko doleli pravico drugemu uporabniku?)
+     Povazava z SQL: 
+        - dodajanje uporabnika, 
+        - spreminjanje obstoječega uporabnika, 
+        - Pridobivanje vseh uporabnikov, 
+        - prdobivanje podatkov o posameznem uporabniku
 
-Dodajanje/brisanje
-
-
+Admin:Dodajanje/brisanje(Admin lahko samo to dela)
+    Povazava z SQL: - dodajanje novih izdelkov: vnnos novega izdelka,
+                    - spreminjanje cen obstoječih izdelkov
+                    - brisanje izdelkov
+                    - dodajanje novih trgovin,kategorij?
+                    - spreminjanje obstoječih uporabnikov-> ne spreminjanje podatkov o uporabnikih ampak dodelitev vloge JeAdmin
+    Če si admin, lahko obstoječim uporabnikom dodaš vlogo admina.
+GetUser()
+Kako vemo kateri uporabnik je prijavlen?
+------
 
 Košarica:
     prikaz izdelkov, (količina)
     prikaz cene
     brisanje izdelkov iz košarice
     oddaja naročila (tukaj se zbrišejo izdelki?)
+    Povazava z SQL:
+     - pridobivanje podatkov o izdelkih v košarici
+     - Brisanje podatkov ALI dodati kljukico na vrstici, ki bi pomenila, da je uporabnik za ta izdelek že oddal naročilo ALI kaj drugega?
+     - Brisanje izdelkov iz košarice zagotovo
 Primerjava cen
+    Filtri, katere trgovine, cena
 	Klikneš izdelek, in ta gre v košarico,
 	izdelek, količino,...ceno
 	doda se v tabelo Košarica ta izdelek, količina, cena, id_uporabnika (če je uporabnik, potem se da 	ID uporabnika, sicer neka instanca od PC al neki...)
-
+    Na katerikoli strani bi imeli možnost iskanja nekega izdelka(Search bar) ki prikaže izdelke podobne 
+    Povazava z SQL:
+        - dodajanje v košarico (podatki o izdelku in količina)
+        - pridobivanje podatkov o izdelkih glede na izbrano podkategorijo, MOŽNI TUDI FILTRI... VEČ poizvedb/funkcij/Api klicev???
+        
 
 
 Pridobivanje podatkov
+    Iz spleta, podatki: opis izdelka, cena, trgovina -> razvrsti glede na že vpisane Podkategorije in Kategorije če "gre".
+    Trgovine(če iz ceneje. si potem se da tudi ta podatek prenesti), kategorije in Podkategorije ročno
+    Povazava z SQL: 
+        - vstavljanje izdelka,vstavljanje trgovine, 
+
 Katalog
+    Prikaz zgolj kategorij in podkategorij!!!
+    Search po izdelkih 
+    Povazava z SQL: 
+        - pridobivanje podatkov o  kategorijah in podkategorijah
 
 
 
 ===============================================
+TABELE:
+    - Uporabniki
+    - Izdelki
+    - Trgovine
+    - Kategorije
+    - Podkategorije
+    - Košarica
+    - Licence?(Marko pove kako)
+
 
 Ko se odpre stran
     getUser()
     isAdmin()
     glede na to a si admin, imaš dosotop do dodajanja/brisanja izdelkov...
+
+Tracking history KAM HRANIT TE PODATKE???
+
+POMEMBNO MARKO KAKO SE V APIJIH DODAJAJO PARAMETRI V GET METODI, TUDI V POST VERJETNO...
+
+get(self)?
+api.add_resource(Catalog, '/do_work')?
+
+Potrebno bo vedeti, kdaj se bo kaj klicalo in kateri parametri bodo v klicu apija
 
 
 
