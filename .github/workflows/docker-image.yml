@@ -9,9 +9,11 @@ on:
 jobs:
 
   build:
- 
+    defaults:
+      run: 
+        working-directory: ./Katalog
     runs-on: ubuntu-latest
-
+    
     steps:
       -
         name: Set up QEMU
@@ -29,7 +31,6 @@ jobs:
         name: Build and push
         uses: docker/build-push-action@v3
         with:
-          working-directory: ./Katalog
           push: true
           tags: tito1234/primerjalnik_cen:latest
 
