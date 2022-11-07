@@ -20,6 +20,7 @@ jobs:
         working-directory: ./Katalog
         file: dockerfile
         push: true
-        tag: jozaizgozda/primerjalnik_cen
+        tag: jozaizgozda/primerjalnik_cen:tagname
+
 
 
