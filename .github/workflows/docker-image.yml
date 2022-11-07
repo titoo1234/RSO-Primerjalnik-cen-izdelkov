@@ -31,6 +31,7 @@ jobs:
         name: Build and push
         uses: docker/build-push-action@v3
         with:
+          file: Docker
           push: true
           tags: tito1234/primerjalnik_cen:latest
 
