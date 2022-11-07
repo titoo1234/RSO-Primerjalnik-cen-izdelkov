@@ -15,8 +15,11 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Build the Docker image
-      working-directory: ./Katalog
-      run: docker build . --file dockerfile --tag my-image-name:$(date +%s)
-    - name: Build the Docker image
-      run: docker push jozaizgozda/primerjalnik_cen:tagname
+      uses: docker/build-push-action@v2
+      with:
+        working-directory: ./Katalog
+        file: dockerfile
+        push: true
+        tag: jozaizgozda/primerjalnik_cen
+
 
