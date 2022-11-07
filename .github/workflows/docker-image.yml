@@ -11,13 +11,15 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./Katalog
 
     steps:
     - uses: actions/checkout@v3
     - name: Build the Docker image
       uses: docker/build-push-action@v2
       with:
-        working-directory: ./app
         file: dockerfile
         push: true
         tags: jozaizgozda/primerjalnik_cen
