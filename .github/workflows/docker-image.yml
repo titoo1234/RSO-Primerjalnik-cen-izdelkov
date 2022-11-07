@@ -19,6 +19,6 @@ jobs:
       with:
         file: dockerfile
         push: true
-        tag: jozaizgozda/primerjalnik_cen
+        tags: jozaizgozda/primerjalnik_cen
 
 
