@@ -14,8 +14,6 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-    - name: Change Directroy
-      working-directory: ./Katalog
     - name: Build the Docker image
       uses: docker/build-push-action@v2
       with:
