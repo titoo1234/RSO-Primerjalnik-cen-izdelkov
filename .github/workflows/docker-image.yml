@@ -20,7 +20,7 @@ jobs:
     - name: Build the Docker image
       uses: docker/build-push-action@v2
       with:
-        file: dockerfile
+        file: Dockerfile
         push: true
         tags: jozaizgozda/primerjalnik_cen
 
