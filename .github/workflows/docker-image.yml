@@ -17,5 +17,6 @@ jobs:
     - name: Build the Docker image
       working-directory: ./Katalog
       run: docker build . --file dockerfile --tag my-image-name:$(date +%s)
-        docker push jozaizgozda/primerjalnik_cen:tagname
+    - name: Build the Docker image
+      run: docker push jozaizgozda/primerjalnik_cen:tagname
 
