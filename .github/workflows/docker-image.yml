@@ -30,7 +30,6 @@ jobs:
       - name: Build and Push the Docker image
         uses: docker/build-push-action@v3
         with:
-          kurac: neki
-          file: Dockerfile
+          file: ./Dockerfile
           push: true
           tags: Katalog/primerjalnik_cen:latest
