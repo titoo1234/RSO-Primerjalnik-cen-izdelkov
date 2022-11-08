@@ -9,9 +9,6 @@ on:
 jobs:
 
   build:
-    defaults:
-      run: 
-        working-directory: ./Katalog
     runs-on: ubuntu-latest
     
     steps:
@@ -30,6 +27,6 @@ jobs:
       - name: Build and Push the Docker image
         uses: docker/build-push-action@v3
         with:
-          file: ./Dockerfile
+          file: ./Katalaog/Dockerfile
           push: true
-          tags: tito1234/primerjalnik_cen:latest
+          tags: tito1234/primerjalnik_cen:latest1
