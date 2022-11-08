@@ -32,4 +32,4 @@ jobs:
         with:
           file: Dockerfile
           push: true
-          tags: tito1234/primerjalnik_cen:latest
+          tags: Katalog/primerjalnik_cen:latest
