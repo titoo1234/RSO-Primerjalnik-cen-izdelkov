@@ -27,13 +27,9 @@ jobs:
         with:
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
-
-      - uses: actions/checkout@v3
-      - name: Build the Docker image
-        working-directory: ./Katalog
-        run: docker build . --file Dockerfile --tag primerjalnik_cen
-
-      - uses: actions/checkout@v3
-      - name: push
-        working-directory: ./Katalog
-        run: docker push tito1234/primerjalnik_cen
+      - name: Build and Push the Docker image
+        uses: docker/build-push-action@v3
+        with:
+          file: Dockerfile
+          push: true
+          tags: tito1234/primerjalnik_cen:latest
