@@ -31,5 +31,9 @@ jobs:
       - uses: actions/checkout@v3
       - name: Build the Docker image
         working-directory: ./Katalog
-        run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
+        run: docker build . --file Dockerfile --tag my-image-name
 
+      - uses: actions/checkout@v3
+      - name: push
+        working-directory: ./Katalog
+        run: docker push tito1234/primerjalnik_cen:my-image-name
