@@ -1,6 +1,6 @@
 CREATE TABLE Trgovine (
     Id  INT PRIMARY KEY IDENTITY,
-    Ime VARCHAR(100)    NOT NULLT
+    Ime VARCHAR(100)    NOT NULL
                 UNIQUE
 );
 

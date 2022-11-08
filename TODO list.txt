@@ -28,7 +28,7 @@ Košarica:
     brisanje izdelkov iz košarice
     oddaja naročila (tukaj se zbrišejo izdelki?)
     Povazava z SQL:
-     - pridobivanje podatkov o izdelkih v košarici
+     - pridobivanje podatkov o izdelkih v košarici(uporabnika)
      - Brisanje podatkov ALI dodati kljukico na vrstici, ki bi pomenila, da je uporabnik za ta izdelek že oddal naročilo ALI kaj drugega?
      - Brisanje izdelkov iz košarice zagotovo
 Primerjava cen
@@ -64,7 +64,7 @@ TABELE:
     - Trgovine
     - Kategorije
     - Podkategorije
-    - Košarica
+    - Košarica(izdelek, količina, uporabnik,)
     - Licence?(Marko pove kako)
 
 
@@ -73,7 +73,7 @@ Ko se odpre stran
     isAdmin()
     glede na to a si admin, imaš dosotop do dodajanja/brisanja izdelkov...
 
-Tracking history KAM HRANIT TE PODATKE???
+Tracking history KAM HRANIT TE PODATKE??? MARKO VE! LOGIRANJE PRED/PO GET/POST METODAH....
 
 POMEMBNO MARKO KAKO SE V APIJIH DODAJAJO PARAMETRI V GET METODI, TUDI V POST VERJETNO...
 
