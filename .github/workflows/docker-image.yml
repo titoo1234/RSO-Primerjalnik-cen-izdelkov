@@ -27,6 +27,6 @@ jobs:
       - name: Build and Push the Docker image
         uses: docker/build-push-action@v3
         with:
-          file: ./Katalaog/Dockerfile
+          file: ./Katalog/Dockerfile
           push: true
           tags: tito1234/primerjalnik_cen:latest1
