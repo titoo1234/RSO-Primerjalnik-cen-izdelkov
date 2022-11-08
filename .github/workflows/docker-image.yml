@@ -12,6 +12,13 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
+    
+      - name: Get Time
+        id: time
+        uses: nanzm/get-time-actions@v1.0
+        with:
+         timeZone: 1
+         format: 'YYYY-MM-DD-HH-mm-ss'
       -
         name: Set up QEMU
         uses: docker/setup-qemu-action@v2
@@ -29,10 +36,10 @@ jobs:
         with:
           file: ./Katalog/Dockerfile
           push: true
-          tags: tito1234/primerjalnik_cen:latestKatalog
+          tags: tito1234/primerjalnik_cen:Katalog${{steps.time.outputs.time}}
       - name: Build and Push the Docker image Vzorec
         uses: docker/build-push-action@v3
         with:
           file: ./Vzorec/Dockerfile
           push: true
-          tags: tito1234/primerjalnik_cen:latestVzorec
+          tags: tito1234/primerjalnik_cen:Vzorec${{steps.time.outputs.time}}
