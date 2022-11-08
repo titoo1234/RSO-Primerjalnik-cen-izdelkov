@@ -24,9 +24,15 @@ jobs:
         with:
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
-      - name: Build and Push the Docker image
+      - name: Build and Push the Docker image Katalog
         uses: docker/build-push-action@v3
         with:
           file: ./Katalog/Dockerfile
           push: true
-          tags: tito1234/primerjalnik_cen:latest1
+          tags: tito1234/primerjalnik_cen:latestKatalog
+      - name: Build and Push the Docker image Vzorec
+        uses: docker/build-push-action@v3
+        with:
+          file: ./Vzorec/Dockerfile
+          push: true
+          tags: tito1234/primerjalnik_cen:latestVzorec
