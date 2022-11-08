@@ -9,12 +9,14 @@ from flask_sqlalchemy import SQLAlchemy
 
 #resources
 from IDKzaime.catalog import Catalog
+from IDKzaime.test import Test
 
 
 def create_app():
     app = Flask(__name__)
     api = Api(app)
     api.add_resource(Catalog, '/do_work')
+    api.add_resource(Test, "/test")
     #app.config['SQLALCHEMY_DATABASE_URI'] = "mssql+pyodbc:///?odbc_connect=Driver={ODBC Driver 17 for SQL Server};Server=tcp:primerjava-cen.database.windows.net,1433;Database=Primerjava_cen;Uid=baza;Pwd=AdminAdmin1!;Encrypt=yes;TrustServerCertificate=no;"
     #app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     return app
