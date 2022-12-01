@@ -37,12 +37,6 @@ jobs:
           file: ./Katalog/Dockerfile
           push: true
           tags: tito1234/primerjalnik_cen:Katalog${{steps.time.outputs.time}}
-      - name: Build and Push the Docker image Vzorec
-        uses: docker/build-push-action@v3
-        with:
-          file: ./Vzorec/Dockerfile
-          push: true
-          tags: tito1234/primerjalnik_cen:Vzorec${{steps.time.outputs.time}}
       - name: Build and Push the Docker image Uporabnik
         uses: docker/build-push-action@v3
         with:
