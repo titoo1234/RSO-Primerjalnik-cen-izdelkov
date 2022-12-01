@@ -6,15 +6,15 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app: image-catalog
+      app: Katalog
   template:
     metadata:
       labels:
-        app: image-catalog
+        app: Katalog
     spec:
       containers:
-        - image: prporso/image-catalog:2022-10-27-17-33-13
-          name: image-catalog
+        - image: tito1234/primerjalnik_cen:Katalog:latest
+          name: Katalog
           env:
             - name: KUMULUZEE_DATASOURCES0_CONNECTIONURL
               value: jdbc:postgresql://fanny.db.elephantsql.com:5432/zqjqqtrd
@@ -26,7 +26,7 @@ spec:
                   name: pg-pass
                   key: KUMULUZEE_DATASOURCES0_PASSWORD
           ports:
-            - containerPort: 8080
+            - containerPort: 5000
               name: server
               protocol: TCP
 
@@ -35,12 +35,12 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: image-catalog
+  name: Katalog
 spec:
   type: LoadBalancer
   ports:
-    - port: 8080
+    - port: 5000
       protocol: TCP
       targetPort: server
   selector:
-    app: image-catalog
+    app: Katalog

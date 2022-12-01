@@ -34,3 +34,11 @@ CREATE TABLE Izdelki (
         Cena
     )
 );
+
+CREATE TABLE Uporabniki (
+    Id    INT  PRIMARY KEY IDENTITY,
+    Ime   VARCHAR(100)     UNIQUE
+                   NOT NULL,
+    Geslo VARCHAR(100) NOT NULL,
+    Admin INT
+);

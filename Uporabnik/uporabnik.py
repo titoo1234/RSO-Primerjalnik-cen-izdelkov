@@ -16,24 +16,24 @@ from Models.Exceptions import *
 class Uporabnik(Resource):
     def get(self, id):
         
-        # driver = "{ODBC Driver 17 for SQL Server}"
-        # server_name = "primerjava-cen.database.windows.net,1433"
-        # db_name = "Primerjava_cen"
-        # username = "baza"
-        # password = "AdminAdmin1!"
+        driver = "{ODBC Driver 17 for SQL Server}"
+        server_name = "primerjava-cen.database.windows.net,1433"
+        db_name = "Primerjava_cen"
+        username = "baza"
+        password = "AdminAdmin1!"
 
-        # conn_str = dedent('''
-        #     Driver={driver};
-        #     Server={server_name};
-        #     Database={db_name};
-        #     Uid={username};
-        #     Pwd={password};
-        #     Encrypt=yes;
-        #     TrustServerCertificate=no;
-        #     Connection Timeout=30;
-        # '''.format(driver=driver, server_name=server_name, db_name=db_name, username=username, password=password))
-        conn_str = "C:/Users/Lenovo/Desktop/1faks/isrm1/racunalniske_storitve_v_oblaku/RSO-Primerjalnik-cen-izdelkov/prva_baza.db"##################
-        query = f"SELECT Ime,Admin FROM Uporabniki Where {id} = Id;"
+        conn_str = dedent('''
+            Driver={driver};
+            Server={server_name};
+            Database={db_name};
+            Uid={username};
+            Pwd={password};
+            Encrypt=yes;
+            TrustServerCertificate=no;
+            Connection Timeout=30;
+        '''.format(driver=driver, server_name=server_name, db_name=db_name, username=username, password=password))
+        #conn_str = "C:/Users/Lenovo/Desktop/1faks/isrm1/racunalniske_storitve_v_oblaku/RSO-Primerjalnik-cen-izdelkov/prva_baza.db"##################
+        query = f"SELECT Id,Ime,Admin FROM Uporabniki Where {id} = Id;"
         eng = SQLRepository(conn_str)
         eng.start_conn()
         result = eng.execute_query(query)
