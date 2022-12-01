@@ -10,13 +10,13 @@ from textwrap import dedent
 import pyodbc
 from flask_sqlalchemy import SQLAlchemy
 
-
-class Catalog(Resource):
+class Kosarica(Resource):
     def get(self):
-        
         driver = "{ODBC Driver 17 for SQL Server}"
+
         server_name = "primerjava-cen.database.windows.net,1433"
         db_name = "Primerjava_cen"
+
         username = "baza"
         password = "AdminAdmin1!"
 
@@ -41,6 +41,7 @@ class Catalog(Resource):
         eng.start_conn()
         result = eng.execute_query(query)
         eng.close_conn()
+
         result = AppResult(True, "", result)
         return result.toJSON()
 
