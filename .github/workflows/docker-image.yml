@@ -43,3 +43,9 @@ jobs:
           file: ./Vzorec/Dockerfile
           push: true
           tags: tito1234/primerjalnik_cen:Vzorec${{steps.time.outputs.time}}
+      - name: Build and Push the Docker image Uporabnik
+        uses: docker/build-push-action@v3
+        with:
+          file: ./Uporabnik/Dockerfile
+          push: true
+          tags: tito1234/primerjalnik_cen:Uporabnik${{steps.time.outputs.time}}
