@@ -5,20 +5,21 @@ from flask import Flask
 from flask_restful import Api#, Resource, reqparse
 from flask_sqlalchemy import SQLAlchemy
 
+
 #import logging
 
 #resources
-from catalog import Catalog
-from test import Test
+from uporabnik import Uporabnik
+from uporabniki import Uporabniki
+from dodajUporabnika import AddUser
 
 
 def create_app():
     app = Flask(__name__)
     api = Api(app)
-    api.add_resource(Catalog, '/do_work')
-    api.add_resource(Test, "/test")
-    #app.config['SQLALCHEMY_DATABASE_URI'] = "mssql+pyodbc:///?odbc_connect=Driver={ODBC Driver 17 for SQL Server};Server=tcp:primerjava-cen.database.windows.net,1433;Database=Primerjava_cen;Uid=baza;Pwd=AdminAdmin1!;Encrypt=yes;TrustServerCertificate=no;"
-    #app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+    api.add_resource(Uporabnik, '/user/<int:id>')#, '/user/<int:id>')
+    api.add_resource(Uporabniki, '/users')
+    api.add_resource(AddUser, '/add_user')
     return app
 
 #logging.basicConfig(filename='record.log', level=logging.INFO, format=f'%(asctime)s %(levelname)s %(name)s %(threadName)s : %(message)s')

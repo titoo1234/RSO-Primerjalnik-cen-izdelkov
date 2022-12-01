@@ -17,9 +17,9 @@ class SQLRepository:
         #you have to download odbc driver 17 https://www.microsoft.com/en-us/download/details.aspx?id=56567
         #full_conn_str = 'mssql+pyodbc:///?odbc_connect=' + quote_plus(self.conn_str)
         try:
-            self.engine = pyodbc.connect(self.conn_str)
+            #self.engine = pyodbc.connect(self.conn_str)
             #self.engine = create_engine(self.conn_str)
-            #self.engine = sqlite3.connect(self.conn_str)
+            self.engine = sqlite3.connect(self.conn_str)####################################################
         except Exception as e:
             raise ConnectionException(str(e))
 
@@ -39,7 +39,8 @@ class SQLRepository:
     def add_row(self, req): # data has to be dataframe
         #data = pd.DataFrame(data)
         cursor = self.engine.cursor()
-        cursor.execute("INSERT INTO Trgovina VALUES (?, ?)", [req["id"], req["trgovina"]])
-        cursor.commit()
+        cursor.execute("INSERT INTO Uporabniki VALUES (?, ?, ?, ?)", [req["username"], req["password"], 0, None])
+        self.engine.commit()
+        #cursor.commit()
         #data.to_sql(str(table_name), self.engine, if_exists="replace", index=False)
         return True
