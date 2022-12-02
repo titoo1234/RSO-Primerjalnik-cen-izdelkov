@@ -37,12 +37,15 @@ class Catalog(Resource):
         #conn_str = "mssql+pyodbc:///?odbc_connect=" + quote_plus(conn_str)
         #query = "SELECT * from Trgovina"
         query = "SELECT * FROM Trgovina"
-        eng = SQLRepository(conn_str)
-        eng.start_conn()
-        result = eng.execute_query(query)
-        eng.close_conn()
-        result = AppResult(True, "", result)
-        return result.toJSON()
+        try:
+            eng = SQLRepository(conn_str)
+            eng.start_conn()
+            result = eng.execute_query(query)
+            eng.close_conn()
+            result = AppResult(True, "", result)
+            return result.toJSON()
+        except Exception as e:
+            return AppResult.create_error_result(str(e)).toJSON()
 
 
     def post(self):

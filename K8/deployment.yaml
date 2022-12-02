@@ -1,30 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: image-catalog-deployment
+  name: katalog
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: Katalog
+      app: katalog
   template:
     metadata:
       labels:
-        app: Katalog
+        app: katalog
     spec:
       containers:
-        - image: tito1234/primerjalnik_cen:Katalog:latest
-          name: Katalog
-          env:
-            - name: KUMULUZEE_DATASOURCES0_CONNECTIONURL
-              value: jdbc:postgresql://fanny.db.elephantsql.com:5432/zqjqqtrd
-            - name: KUMULUZEE_DATASOURCES0_USERNAME
-              value: zqjqqtrd
-            - name: KUMULUZEE_DATASOURCES0_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: pg-pass
-                  key: KUMULUZEE_DATASOURCES0_PASSWORD
+        - image: tito1234/primerjalnik_cen:Katalog2022-12-01-21-02-05
+          name: katalog
+          
           ports:
             - containerPort: 5000
               name: server
@@ -35,7 +26,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: Katalog
+  name: balancer
 spec:
   type: LoadBalancer
   ports:
@@ -43,4 +34,4 @@ spec:
       protocol: TCP
       targetPort: server
   selector:
-    app: Katalog
+    app: katalog
