@@ -43,4 +43,19 @@ jobs:
           file: ./Uporabnik/Dockerfile
           push: true
           tags: tito1234/primerjalnik_cen:Uporabnik${{steps.time.outputs.time}}
+      
+
+      - name: create db
+        uses: docker/build-push-action@v3
+        with:
+          file: ./Baza/Ustvari/Dockerfile
+          push: true
+          tags: tito1234/primerjalnik_cen:DBUstvari${{steps.time.outputs.time}}
+
+      - name: fill db
+        uses: docker/build-push-action@v3
+        with:
+          file: ./Baza/Napolni/Dockerfile
+          push: true
+          tags: tito1234/primerjalnik_cen:DBNapolni${{steps.time.outputs.time}}
 
