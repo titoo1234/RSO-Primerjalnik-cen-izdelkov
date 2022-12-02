@@ -21,6 +21,20 @@ spec:
               name: server
               protocol: TCP
 
+        - image: tito1234/primerjalnik_cen:DBUstvari2022-12-03-05-48-00
+          name: bazaustvari
+          ports:
+            - containerPort: 1433
+              name: baza
+              protocol: TCP
+
+        - image: tito1234/primerjalnik_cen:DBNapolni2022-12-03-05-48-00
+          name: bazanapolni
+          ports:
+            - containerPort: 1433
+              name: baza
+              protocol: TCP
+
 ---
 
 apiVersion: v1
