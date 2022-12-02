@@ -43,3 +43,9 @@ jobs:
           file: ./Uporabnik/Dockerfile
           push: true
           tags: tito1234/primerjalnik_cen:Uporabnik${{steps.time.outputs.time}}
+      - name: Create and fill database
+        uses: docker/build-push-action@v3
+        with:
+          file: ./Baza/docker-compose.yaml
+          push: true
+          tags: tito1234/primerjalnik_cen:Database${{steps.time.outputs.time}}
