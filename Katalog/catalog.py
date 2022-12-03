@@ -49,7 +49,7 @@ class Catalog(Resource):
         pwd= "yourStrong(!)Password"
         db_name = "base123"
         conn_str = "DRIVER={ODBC Driver 17 for SQL Server};Server="+str(server)+";port="+str(port)+";Database="+str(db_name)+";UID="+ str(uid) +";PWD=" + str(pwd)+";"
-        query = "SELECT * FROM Trgovine"
+        query = "SELECT * FROM Kosarica"
         try:
             eng = SQLRepository(conn_str)
             eng.start_conn()

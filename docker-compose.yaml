@@ -1,12 +1,19 @@
-version: "3"
+version: "4"
 services:
+  # appkosarica:
+  #   build: ./Kosarica
+  #   container_name: "Flask_appkosarica"
+  #   links:
+  #     - db
+  #   ports:
+  #     - "5001:5001"
   app:
     build: ./Katalog
     container_name: "Flask_app"
     links:
       - db
     ports:
-      - "5000:5000"
+      - "5000:5000"    
   db:
     build: ./Baza/Ustvari
     container_name: "Database"

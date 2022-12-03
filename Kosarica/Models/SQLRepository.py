@@ -16,14 +16,15 @@ class SQLRepository:
         #you have to download odbc driver 17 https://www.microsoft.com/en-us/download/details.aspx?id=56567
         #full_conn_str = 'mssql+pyodbc:///?odbc_connect=' + quote_plus(self.conn_str)
         try:
-            self.engine = pyodbc.connect(self.conn_str)
+            s = 'mssql+pyodbc:///?odbc_connect=' + quote_plus(self.conn_str)
+            self.engine = create_engine(s)
             #self.engine = create_engine(self.conn_str)
         except Exception as e:
             raise ConnectionException(str(e))
 
     def close_conn(self):
-        self.engine.close()
-        #self.engine.dispose()
+        #self.engine.close()
+        self.engine.dispose()
 
     def execute_query(self, query):
         df = pd.read_sql_query(query, self.engine)

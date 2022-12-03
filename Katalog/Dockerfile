@@ -3,7 +3,7 @@ FROM tadeorubio/pyodbc-msodbcsql17
 
 # copy the requirements file into the image
 COPY ./Katalog/requirements.txt /app/requirements.txt
-
+#/Katalog/
 # switch working directory
 WORKDIR /app
 
@@ -23,3 +23,4 @@ EXPOSE 5000
 ENTRYPOINT [ "python" ]
 
 CMD ["./Katalog/app.py" ]
+#Katalog/

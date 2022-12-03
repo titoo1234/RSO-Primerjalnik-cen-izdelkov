@@ -60,7 +60,7 @@ def fill_db(server, port, uid, pwd, db_name, sql_script):
 
 
 if __name__=='__main__':
-    time.sleep(30)
+    time.sleep(15)
     a = sys.argv[1]
     b = sys.argv[2]
     c = sys.argv[3]
@@ -72,5 +72,5 @@ if __name__=='__main__':
         fill_db(a, b, c, d , e , f)
     except Exception as e:
         print(str(e))
-    #create_db("localhost", 1433, "SA", "yourStrong(!)Password", "base22")
-    #fill_db("localhost", 1433, "SA", "yourStrong(!)Password" ,"base22", "setup.sql")
+    # create_db("localhost", 1433, "SA", "yourStrong(!)Password", "base22")
+    # fill_db("localhost", 1433, "SA", "yourStrong(!)Password" ,"base22", "setup.sql")

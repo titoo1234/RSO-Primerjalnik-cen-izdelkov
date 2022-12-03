@@ -1,6 +1,7 @@
 FROM tadeorubio/pyodbc-msodbcsql17
 
 # copy the requirements file into the image
+#./Baza/Napolni/
 COPY ./Baza/Napolni/requirements.txt /DB/requirements.txt
 
 # switch working directory
@@ -14,5 +15,5 @@ RUN pip install -r requirements.txt
 COPY . /DB
 # configure the container to run in an executed manner
 ENTRYPOINT [ "python" ]
-
+#./Baza/Napolni/
 CMD ["./Baza/Napolni/python_script.py", "Database", "1433", "SA", "yourStrong(!)Password", "base123", "setup.sql"]
