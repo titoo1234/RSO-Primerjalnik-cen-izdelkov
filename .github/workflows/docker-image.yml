@@ -43,7 +43,13 @@ jobs:
           file: ./Uporabnik/Dockerfile
           push: true
           tags: tito1234/primerjalnik_cen:Uporabnik${{steps.time.outputs.time}}
-      
+          
+      - name: Build and Push the Docker image Kosarica
+        uses: docker/build-push-action@v3
+        with:
+          file: ./Kosarica/Dockerfile
+          push: true
+          tags: tito1234/primerjalnik_cen:Kosarica${{steps.time.outputs.time}}
 
       - name: create db
         uses: docker/build-push-action@v3
