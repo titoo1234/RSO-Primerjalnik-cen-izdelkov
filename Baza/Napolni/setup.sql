@@ -54,18 +54,18 @@ CREATE TABLE Kosarica (
 
 
 
-INSERT INTO Trgovine (Ime) VALUES ('Mercator')
-INSERT INTO Trgovine (Ime) VALUES ('Tus')
+INSERT INTO Trgovine (Ime) VALUES ('Mercator');
+INSERT INTO Trgovine (Ime) VALUES ('Tus');
 
 
-INSERT INTO Kategorije (Ime) VALUES ('Meso')
+INSERT INTO Kategorije (Ime) VALUES ('Meso');
 
-INSERT INTO Podkategorije (Ime,Kategorija) VALUES ('Svinjsko meso',1)
+INSERT INTO Podkategorije (Ime,Kategorija) VALUES ('Svinjsko meso',1);
 
-INSERT INTO Izdelki (Ime,Kategorija,Podkategorija,Trgovina,Cena) VALUES ('Ribica',1,1,1,13.79)
+INSERT INTO Izdelki (Ime,Kategorija,Podkategorija,Trgovina,Cena) VALUES ('Ribica',1,1,1,13.79);
 
 
 
-INSERT INTO Uporabniki (Ime,Geslo,Admin) VALUES ('Janez123','asdhuvqoasdjv',0)
+INSERT INTO Uporabniki (Ime,Geslo,Admin) VALUES ('Janez123','asdhuvqoasdjv',0);
 
-INSERT INTO Kosarica (Uporabnik, Izdelek, Kolicina, Cena, Trgovina) VALUES (1,1,1,13.79,1)
+INSERT INTO Kosarica (Uporabnik, Izdelek, Kolicina, Cena, Trgovina) VALUES (1,1,1,13.79,1);
