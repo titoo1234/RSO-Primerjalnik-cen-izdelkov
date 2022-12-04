@@ -12,7 +12,6 @@ from flask_sqlalchemy import SQLAlchemy
 import urllib.parse as up
 import psycopg2
 
-
 class Catalog(Resource):
     def get(self):
         
