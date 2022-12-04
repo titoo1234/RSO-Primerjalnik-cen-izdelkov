@@ -12,6 +12,8 @@ from flask_sqlalchemy import SQLAlchemy
 from Models.Exceptions import *
 import urllib.parse as up
 import psycopg2
+import pandas as pd
+
 
 
 
@@ -26,10 +28,11 @@ class Uporabnik(Resource):
             url = up.urlparse("postgres://fzhvzwic:hjYYIyExOk4_UXtKv9BoWkqeso0gVhlB@peanut.db.elephantsql.com/fzhvzwic")
             conn = psycopg2.connect(database=url.path[1:], user=url.username, password=url.password, host='peanut.db.elephantsql.com', port=url.port )
             conn.set_session(autocommit=True)
-            cur = conn.cursor()
-
-            cur.execute(query)
-            result = cur.fetchall()
+            # cur = conn.cursor()
+            df = pd.read_sql_query(query, conn)
+            result = df.to_dict("records")
+            # cur.execute(query)
+            # result = cur.fetchall()
             # eng = SQLRepository(conn_str)
             # eng.start_conn()
             # print("conn started success")
