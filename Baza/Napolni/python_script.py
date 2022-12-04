@@ -17,7 +17,7 @@ def create_db(server, port, uid, pwd, db_name):
     engine = create_engine(full_conn_str)
     engine = engine.execution_options(isolation_level="AUTOCOMMIT")
     engine.execute(text(f"CREATE DATABASE {db_name}"))
-    engine.dispose()
+    #engine.dispose()
 
 def fill_db(server, port, uid, pwd, db_name, sql_script):
     conn_str = "DRIVER={ODBC Driver 17 for SQL Server};Server="+str(server)+";port="+str(port)+";Database="+str(db_name)+";UID="+ str(uid) +";PWD=" + str(pwd)+";"
@@ -56,7 +56,7 @@ def fill_db(server, port, uid, pwd, db_name, sql_script):
         query = text(file.read())
     engine = engine.execution_options(isolation_level="AUTOCOMMIT")
     engine.execute(query)
-    # engine.dispose()
+    #engine.dispose()
 
 
 if __name__=='__main__':
