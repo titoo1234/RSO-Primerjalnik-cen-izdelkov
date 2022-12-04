@@ -5,8 +5,8 @@ services:
       context: ./Kosarica
       dockerfile: Dockerfile
     container_name: "Flask_appkosarica"
-    links:
-      - db
+    # links:
+    #   - db
     ports:
       - "5001:5001"
   app:
@@ -14,18 +14,18 @@ services:
       context: ./Katalog
       dockerfile: Dockerfile
     container_name: "Flask_app"
-    links:
-      - db
+    # links:
+    #   - db
     ports:
       - "5000:5000"    
-  db:
-    build: ./Baza/Ustvari
-    container_name: "Database"
-    ports:
-      - "1433:1433"
-  db_fill:
-    build: ./Baza/Napolni
-    container_name: "Fill_DB"
-    links:
-      - db
+  # db:
+  #   build: ./Baza/Ustvari
+  #   container_name: "Database"
+  #   ports:
+  #     - "1433:1433"
+  # db_fill:
+  #   build: ./Baza/Napolni
+  #   container_name: "Fill_DB"
+  #   links:
+  #     - db
 
