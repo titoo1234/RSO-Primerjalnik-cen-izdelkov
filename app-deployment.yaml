@@ -25,7 +25,7 @@ spec:
     spec:
       containers:
         - image: tito1234/primerjalnik_cen:Katalog2022-12-05-00-59-14
-          name: flask-app
+          name: Katalog-app
           ports:
             - containerPort: 5000
           resources: {}
