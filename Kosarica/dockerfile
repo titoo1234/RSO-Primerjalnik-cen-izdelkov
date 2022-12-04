@@ -2,7 +2,7 @@
 FROM tadeorubio/pyodbc-msodbcsql17
 
 # copy the requirements file into the image
-COPY ./requirements.txt /app/requirements.txt
+COPY ./Kosarica/requirements.txt /app/requirements.txt
 #Kosarica/
 # switch working directory
 WORKDIR /app
@@ -20,5 +20,5 @@ EXPOSE 5001
 # configure the container to run in an executed manner
 ENTRYPOINT [ "python" ]
 
-CMD ["./app.py" ]
+CMD ["./Kosarica/app.py" ]
 #/Kosarica
