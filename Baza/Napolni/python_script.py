@@ -56,7 +56,7 @@ def fill_db(server, port, uid, pwd, db_name, sql_script):
         query = text(file.read())
     engine = engine.execution_options(isolation_level="AUTOCOMMIT")
     engine.execute(query)
-    engine.dispose()
+    # engine.dispose()
 
 
 if __name__=='__main__':
