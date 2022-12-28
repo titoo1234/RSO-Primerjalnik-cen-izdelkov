@@ -6,14 +6,20 @@ metadata:
     kompose.version: 1.26.0 (40646f47)
   creationTimestamp: null
   labels:
-    io.kompose.service: appkatalog
-  name: appkatalog
+    io.kompose.service: appkatalog, appuporabnik, appkosarica
+  name: appvse
 spec:
   type: LoadBalancer
   ports:
     - port: 5000
       protocol: TCP
       targetPort: 5000
+    - port: 5001
+      protocol: TCP
+      targetPort: 5001
+    - port: 5002
+      protocol: TCP
+      targetPort: 5002
   selector:
-    io.kompose.service: appkatalog
+    io.kompose.service: appkatalog, appuporabnik, appkosarica
 

@@ -6,13 +6,13 @@ metadata:
     kompose.version: 1.26.0 (40646f47)
   creationTimestamp: null
   labels:
-    io.kompose.service: appkosarica
+    io.kompose.service: app
   name: appkosarica
 spec:
   replicas: 1
   selector:
     matchLabels:
-      io.kompose.service: appkosarica
+      io.kompose.service: app
   strategy: {}
   template:
     metadata:
@@ -21,10 +21,10 @@ spec:
         kompose.version: 1.26.0 (40646f47)
       creationTimestamp: null
       labels:
-        io.kompose.service: appkosarica
+        io.kompose.service: app
     spec:
       containers:
-        - image: tito1234/primerjalnik_cen:Kosarica2022-12-05-03-43-28
+        - image: tito1234/primerjalnik_cen:Kosarica2022-12-05-04-28-25
           name: appkosarica
           ports:
             - containerPort: 5001
