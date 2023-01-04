@@ -14,6 +14,6 @@ class AppResult:
     def create_error_result(message):
         return AppResult(False, message, None)
 
-    # @staticmethod
-    # def create_true_result():
-    #     return AppResult(True, "", None)
+    @staticmethod
+    def create_true_result():
+        return AppResult(True, "", None)

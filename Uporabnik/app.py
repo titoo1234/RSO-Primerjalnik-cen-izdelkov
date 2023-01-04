@@ -10,16 +10,17 @@ from flask_sqlalchemy import SQLAlchemy
 
 #resources
 from uporabnik import Uporabnik
-from uporabniki import Uporabniki
+#from uporabniki import Uporabniki
 from dodajUporabnika import AddUser
 
 
 def create_app():
     app = Flask(__name__)
     api = Api(app)
-    api.add_resource(Uporabnik, '/user/<int:id>')#, '/user/<int:id>')
-    api.add_resource(Uporabniki, '/users')
-    api.add_resource(AddUser, '/add_user')
+    api.add_resource(Uporabnik, '/user', '/user/<int:id>')#, '/user/<int:id>')
+    #api.add_resource(Uporabniki, '/users')
+    #api.add_resource(AddUser, '/add_user')
+    api.add_resource(AddUser, '/user/add')
     return app
 
 #logging.basicConfig(filename='record.log', level=logging.INFO, format=f'%(asctime)s %(levelname)s %(name)s %(threadName)s : %(message)s')

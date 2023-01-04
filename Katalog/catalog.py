@@ -65,13 +65,8 @@ class Catalog(Resource):
 
             cur.execute('Select * from Trgovine')
 
-            # eng = SQLRepository(conn_str)
-            # eng.start_conn()
-            # print("conn started success")
             result = cur.fetchall()
-            # result = eng.execute_query(query)
-            # print("execute query succ")
-            # eng.close_conn()
+
             result = AppResult(True, "", result)
             return result.toJSON()
         except Exception as e:
