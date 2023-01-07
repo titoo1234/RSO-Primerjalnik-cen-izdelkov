@@ -1,5 +1,6 @@
 from flask import request
-from flask_restful import Resource
+#from flask_restful import Resource
+from flask_restx import Resource
 from urllib.parse import quote_plus
 from sqlalchemy import create_engine
 from Models.AppResult import AppResult

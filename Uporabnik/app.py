@@ -2,7 +2,8 @@
 # import sys
 # sys.path.append("../")
 from flask import Flask
-from flask_restful import Api#, Resource, reqparse
+#from flask_restful import Api#, Resource, reqparse
+from flask_restx import Api
 from flask_sqlalchemy import SQLAlchemy
 
 from prometheus_flask_exporter import PrometheusMetrics
@@ -17,7 +18,7 @@ from dodajUporabnika import AddUser
 
 def create_app():
     app = Flask(__name__)
-    api = Api(app)
+    api = Api(app, doc='/openapi')
     api.add_resource(Uporabnik, '/user', '/user/<int:id>')#, '/user/<int:id>')
     #api.add_resource(Uporabniki, '/users')
     #api.add_resource(AddUser, '/add_user')
