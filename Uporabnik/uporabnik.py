@@ -1,6 +1,6 @@
 # import sys
 # sys.path.append('../')
-from flask import request
+from flask import request, jsonify
 #from flask_restful import Resource
 from flask_restx import Resource
 from urllib.parse import quote_plus
@@ -14,6 +14,7 @@ from Models.Exceptions import *
 import urllib.parse as up
 import psycopg2
 import pandas as pd
+from connections import start_connDB
 #from threading import Lock
 #lock = Lock()
 
@@ -24,21 +25,23 @@ requests_summary = Summary('flask_http_requests_per_second', 'ŠTO NEVEM VEČ KA
 
 class Uporabnik(Resource):
     def get(self, id=None):
-        requests_total.labels(method='GET', endpoint='/uporabnik').inc()
-        with requests_summary.labels(method="GET", endpoint="/uporabnik").time():
+
+        requests_total.labels(method='GET', endpoint='/user').inc()
+        with requests_summary.labels(method="GET", endpoint="/user").time():
         
             if id is None:
                 try:
                     query = f"SELECT Id,Ime FROM Uporabniki;"
-                    up.uses_netloc.append("postgres")
-                    url = up.urlparse("postgres://fzhvzwic:hjYYIyExOk4_UXtKv9BoWkqeso0gVhlB@peanut.db.elephantsql.com/fzhvzwic")
-                    conn = psycopg2.connect(database=url.path[1:], user=url.username, password=url.password, host='peanut.db.elephantsql.com', port=url.port )
-                    conn.set_session(autocommit=True)
+                    # up.uses_netloc.append("postgres")
+                    # url = up.urlparse("postgres://fzhvzwic:hjYYIyExOk4_UXtKv9BoWkqeso0gVhlB@peanut.db.elephantsql.com/fzhvzwic")
+                    # conn = psycopg2.connect(database=url.path[1:], user=url.username, password=url.password, host='peanut.db.elephantsql.com', port=url.port )
+                    # conn.set_session(autocommit=True)
+                    conn = start_connDB()
                     # cur = conn.cursor()
                     df = pd.read_sql_query(query, conn)
                     result = df.to_dict("records")
                     conn.close()
-                    result = AppResult(True, "", result)
+                    #result = AppResult(True, "", result)
 
                     # with lock:
                     #     requests_summary._lock
@@ -50,9 +53,10 @@ class Uporabnik(Resource):
                     #         requests_summary._lock.release
 
 
-                    return result.toJSON()
+                    #return result.toJSON()
+                    return result, 200
                 except Exception as e:
-                    return AppResult.create_error_result(str(e)).toJSON()
+                    "Error: " + str(e), 500 #mogoče redirect na /break????
 
             else:
                 try:
@@ -65,10 +69,11 @@ class Uporabnik(Resource):
                     df = pd.read_sql_query(query, conn)
                     result = df.to_dict("records")
                     conn.close()
-                    result = AppResult(True, "", result)
-                    return result.toJSON()
+                    #result = AppResult(True, "", result)
+                    #return result.toJSON()
+                    return result, 200
                 except Exception as e:
-                    return AppResult.create_error_result(str(e)).toJSON()
+                    "Error: " + str(e), 500
 
     def delete(self, id):
         try:
@@ -89,7 +94,8 @@ class Uporabnik(Resource):
             # print(df)
             # result = df.to_dict("records")
             # print(result)
-            result = AppResult.create_true_result()
-            return result.toJSON(), 200
+            #result = AppResult.create_true_result()
+            #return result.toJSON(), 200
+            return "User deleted", 200
         except Exception as e:
-            return AppResult.create_error_result(str(e)).toJSON(), 500
+            return "Error: " + str(e), 500

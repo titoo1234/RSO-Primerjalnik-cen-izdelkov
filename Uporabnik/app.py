@@ -7,6 +7,7 @@ from flask_restx import Api
 from flask_sqlalchemy import SQLAlchemy
 
 from prometheus_flask_exporter import PrometheusMetrics
+import connections
 
 #import logging
 
@@ -15,6 +16,7 @@ from uporabnik import Uporabnik
 #from uporabniki import Uporabniki
 from dodajUporabnika import AddUser
 
+broken = False
 
 def create_app():
     app = Flask(__name__)
@@ -28,17 +30,34 @@ def create_app():
 #logging.basicConfig(filename='record.log', level=logging.INFO, format=f'%(asctime)s %(levelname)s %(name)s %(threadName)s : %(message)s')
 app = create_app()
 metrics = PrometheusMetrics(app, group_by="endpoint", path="/user/metrics")
+
+
 @app.route('/user/health')
-def health_uporabnik():
+#@app.header("ABC", "WTF")
+def health_user():
     # tule bi načeloma mogli preverjat neki --_o_--
     # na navodilih piše da moremo simulirat bolno storitev, to bi naredli mogoče tako,
     # da bi meli neko globalno spremenljivo, ki bi se pri nekem določenem klicu spremenila,
     # in botem bi tule prišlo do falsa
     # neki simetričnega bi naredili za readiness pa še na eni mikrostoritvi
-    if 1 + 1 == 2:
+    #if not broken and dela_pozevaz
+    global broken
+    if not broken and connections.check_connDB():#dodaj da preveri povezavo na bazo
         return "Ok", 200
     else:
         return "Unhealthy", 500
+
+@app.route("/user/break")
+def break_ms():
+    global broken
+    broken = True
+    return "You broke the microservice user"
+
+@app.route("/user/unbreak")
+def unbreak_ms():
+    global broken
+    broken = False
+    return "You revived the microservice user"
 
 #db = SQLAlchemy(app)
 if __name__ == '__main__':

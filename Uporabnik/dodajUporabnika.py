@@ -39,9 +39,10 @@ class AddUser(Resource):
             # print(df)
             # result = df.to_dict("records")
             # print(result)
-            result = AppResult.create_true_result()
-            return result.toJSON(), 200
+            #result = AppResult.create_true_result()
+            #return result.toJSON(), 200
+            return f"User {name} added", 200
         except Exception as e:
-            return AppResult.create_error_result(str(e)).toJSON(), 500
+            return "Error: " + str(e), 500
 
 
