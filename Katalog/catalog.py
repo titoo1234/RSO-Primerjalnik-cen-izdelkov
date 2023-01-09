@@ -1,7 +1,5 @@
-# import sys
-# sys.path.append('../')
-from flask import request
-from flask_restful import Resource
+from flask import request, jsonify
+from flask_restx import Resource
 from urllib.parse import quote_plus
 from sqlalchemy import create_engine
 from Models.AppResult import AppResult
@@ -9,97 +7,43 @@ from Models.SQLRepository import SQLRepository
 from textwrap import dedent
 import pyodbc
 from flask_sqlalchemy import SQLAlchemy
+from Models.Exceptions import *
 import urllib.parse as up
 import psycopg2
+import pandas as pd
+from connections import start_connDB
+from prometheus_client import Counter, Summary, Gauge
+requests_total = Counter('flask_http_requests_total', 'VSI KLICI NA /user/<id>', ['method', 'endpoint'])
+requests_summary = Summary('flask_http_requests_per_second', 'ŠTO NEVEM VEČ KA POMENI', ['method', 'endpoint'])
 
 class Catalog(Resource):
     def get(self):
-        
-        # driver = "{ODBC Driver 17 for SQL Server}"
-        # #server_name = "tcp:primerjava-cen.database.windows.net,1433"
-        # server_name = "Database"
-        # #če maš samo bazo na dockerju dap localhost
-        # #db_name = "Primerjava_cen"
-        # db_name = "base123"
-        # #username = "baza"
-        # username = "SA"
-        # #password = "AdminAdmin1!"
-        # password = "yourStrong(!)Password"
-        # port = "1433"
-
-        # conn_str = dedent('''
-        #     Driver={driver};
-        #     Server={server_name};
-        #     Database={db_name};
-        #     Uid={username};
-        #     Pwd={password};
-        #     Port={port};
-        # '''.format(driver=driver, server_name=server_name, db_name=db_name, username=username, password=password, port=port))
-        #            Encrypt=yes;
-        #    TrustServerCertificate=no;
-        #Connection Timeout=30;
-        #conn_str = r"sqlite:///DRIVER={ODBC Driver 17 for SQL Server}C:/Users/Lenovo/Desktop/1faks/isrm1/racunalniske_storitve_v_oblaku/RSO-Primerjalnik-cen-izdelkov/testna_baza.db"
-        #'mssql+pyodbc:///?odbc_connect=' + quote_plus("DRIVER={ODBC Driver 17 for SQL Server};Server=db;port=1433;DataBase=base1;UID=SA;PWD=yourStrong(!)Password;")
-        #conn_str = "mssql+pyodbc:///?odbc_connect=Driver={ODBC Driver 17 for SQL Server};Server=tcp:primerjava-cen.database.windows.net,1433;Database=Primerjava_cen;Uid=baza;Pwd=AdminAdmin1!;Encrypt=yes;TrustServerCertificate=no;"
-        #conn_str = "mssql+pyodbc:///?odbc_connect=Driver={ODBC Driver 17 for SQL Server};Server=tcp:primerjava-cen.database.windows.net,1433;Database=Primerjava_cen;Uid=baza;Pwd=AdminAdmin1!;"
-        #conn_str = "mssql+pyodbc:///?odbc_connect=" + quote_plus(conn_str)
-        #query = "SELECT * from Trgovina"
-        
-        
-        # server ="Database"
-        # port = "1433"
-        # uid= "SA"
-        # pwd= "yourStrong(!)Password"
-        # db_name = "base123"
-        # conn_str = "DRIVER={ODBC Driver 17 for SQL Server};Server="+str(server)+";port="+str(port)+";Database="+str(db_name)+";UID="+ str(uid) +";PWD=" + str(pwd)+";"
-        # query = "SELECT * FROM Trgovine"
-
-        
-
         try:
-            up.uses_netloc.append("postgres")
-            url = up.urlparse("postgres://fzhvzwic:hjYYIyExOk4_UXtKv9BoWkqeso0gVhlB@peanut.db.elephantsql.com/fzhvzwic")
-            conn = psycopg2.connect(database=url.path[1:], user=url.username, password=url.password, host='peanut.db.elephantsql.com', port=url.port )
-            conn.set_session(autocommit=True)
-            cur = conn.cursor()
-
-            cur.execute('Select * from Trgovine')
-
-            result = cur.fetchall()
-
-            result = AppResult(True, "", result)
-            return result.toJSON()
+            query = f"Select * from izdelki;"#SELECT * FROM Uporabniki Where {id} = Id
+            conn = start_connDB()
+            df = pd.read_sql_query(query, conn)
+            result = df.to_dict("records")
+            conn.close()
+            return result, 200
         except Exception as e:
-            return AppResult.create_error_result(str(e)).toJSON()
+            "Error: " + str(e), 500
 
 
-    def post(self):
-        driver = "{ODBC Driver 17 for SQL Server}"
 
-        server_name = "primerjava-cen.database.windows.net,1433"
-        db_name = "Primerjava_cen"
+    def delete(self, id):
+        try:
+            query = f"DELETE FROM Uporabniki WHERE id = {id};"#SELECT * FROM Uporabniki Where {id} = Id
+            conn = start_connDB()
+            cur = conn.cursor()
+            cur.execute(query)
+            cur.close()
+            conn.close()
+            conn.close()
+            return "User deleted", 200
+        except Exception as e:
+            return "Error: " + str(e), 500
 
-        username = "baza"
-        password = "AdminAdmin1!"
+    
 
-        conn_str = dedent('''
-            Driver={driver};
-            Server={server_name};
-            Database={db_name};
-            Uid={username};
-            Pwd={password};
-            Encrypt=yes;
-            TrustServerCertificate=no;
-            Connection Timeout=30;
-        '''.format(driver=driver, server_name=server_name, db_name=db_name, username=username, password=password))
-        #id = request.json["id"]
-        #trgovina = request.json["trgovina"]
-        #query = "INSERT INTO Trgovina VALUES (?, ?);"
-        eng = SQLRepository(conn_str)
-        eng.start_conn()
-        result = eng.add_row(request.json)
-        eng.close_conn()
-        if result:
-            return AppResult(True, "", None).toJSON()
-        return AppResult.create_error_result("negre").toJSON()
+        
 

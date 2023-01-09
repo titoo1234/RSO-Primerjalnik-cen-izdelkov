@@ -35,6 +35,18 @@ CREATE TABLE Izdelki (
     )
 );
 
+CREATE TABLE Izdelki (  
+    Ime           VARCHAR(100)    NOT NULL,
+    Trgovina      VARCHAR(100) NOT NULL,
+    Cena          DECIMAL NOT NULL,
+    UNIQUE (
+        Ime,
+        Trgovina,
+        Cena
+    )
+);
+
+
 CREATE TABLE Uporabniki (
     Id    INT  PRIMARY KEY IDENTITY,
     Ime   VARCHAR(100)     UNIQUE
@@ -42,7 +54,21 @@ CREATE TABLE Uporabniki (
     Geslo VARCHAR(100) NOT NULL,
     Admin INT
 );
+CREATE TABLE Kosarica (  
+    Uporabnik    INT PRIMARY KEY REFERENCES Uporabniki (Id),
+    Izdelek           VARCHAR(100)    NOT NULL,
+    Trgovina      VARCHAR(100) NOT NULL,
+    Cena          DECIMAL NOT NULL,
+);
 
-INSERT into Trgovine values (Tus)
-INSERT into Trgovine values (Mercator)
-INSERT into Trgovine values (Hofer)
+
+INSERT into Izdelki values ('Mleko','Tuš',1.42);
+INSERT into Izdelki values ('Mleko','Mercator',1.37);
+INSERT into Izdelki values ('Mleko','Hofer',1.22);
+INSERT into Izdelki values ('Špageti','Tuš',1.11);
+INSERT into Izdelki values ('Špageti','Mercator',1.05);
+INSERT into Izdelki values ('Špageti','Hofer',0.89);
+INSERT into Izdelki values ('Kruh','Tuš',2.59);
+INSERT into Izdelki values ('Kruh','Mercator',3.55);
+INSERT into Izdelki values ('Kruh','Hofer',2.99);
+

@@ -1,27 +1,50 @@
 """Code for the flask app."""
-# import sys
-# sys.path.append("../")
+
 from flask import Flask
-from flask_restful import Api#, Resource, reqparse
+from flask_restx import Api
 from flask_sqlalchemy import SQLAlchemy
-
-#import logging
-
-#resources
+from prometheus_flask_exporter import PrometheusMetrics
+import connections
+broken = False
 from catalog import Catalog
 from test import Test
+# def create_app():
+#     app = Flask(__name__)
+#     api = Api(app, doc='/openapi')
+#     api.add_resource(Uporabnik, '/user', '/user/<int:id>')#, '/user/<int:id>')
+#     #api.add_resource(Uporabniki, '/users')
+#     #api.add_resource(AddUser, '/add_user')
+#     api.add_resource(AddUser, '/user/add')
+#     return app
 
 def create_app():
     app = Flask(__name__)
     api = Api(app)
     api.add_resource(Catalog, '/katalog')
-    api.add_resource(Test, "/test")
-    #app.config['SQLALCHEMY_DATABASE_URI'] = "mssql+pyodbc:///?odbc_connect=Driver={ODBC Driver 17 for SQL Server};Server=tcp:primerjava-cen.database.windows.net,1433;Database=Primerjava_cen;Uid=baza;Pwd=AdminAdmin1!;Encrypt=yes;TrustServerCertificate=no;"
-    #app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     return app
 
-#logging.basicConfig(filename='record.log', level=logging.INFO, format=f'%(asctime)s %(levelname)s %(name)s %(threadName)s : %(message)s')
 app = create_app()
-#db = SQLAlchemy(app)
+metrics = PrometheusMetrics(app, group_by="endpoint", path="/katalog/metrics")
+
+@app.route('/katalog/health')
+def health_user():
+    global broken
+    if not broken and connections.check_connDB():#dodaj da preveri povezavo na bazo
+        return "Ok", 200
+    else:
+        return "Unhealthy", 500
+
+@app.route("/katalog/break")
+def break_ms():
+    global broken
+    broken = True
+    return "You broke the microservice user"
+
+@app.route("/katalog/unbreak")
+def unbreak_ms():
+    global broken
+    broken = False
+    return "You revived the microservice user"
+
 if __name__ == '__main__':
-    app.run(debug=False, host="0.0.0.0", port=5000)
+    app.run(debug=False, host="0.0.0.0", port=5003)

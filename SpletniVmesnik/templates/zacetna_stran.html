@@ -1,0 +1,82 @@
+{% extends 'osnova_spletnega_vmesnika.html' %} 
+{% block main %}
+<style>
+	#customers {
+	  font-family: Arial, Helvetica, sans-serif;
+	  border-collapse: collapse;
+	  width: 100%;
+	}
+	
+	#customers td, #customers th {
+	  border: 1px solid #ddd;
+	  padding: 8px;
+	}
+	
+	#customers tr:nth-child(even){background-color: #f2f2f2;}
+	
+	#customers tr:hover {background-color: #ddd;}
+	
+	#customers th {
+	  padding-top: 12px;
+	  padding-bottom: 12px;
+	 
+	  background-color: #0E1E5B;
+	  color: white;
+	}
+	</style>
+			
+
+<table is-fullwidth class="table" align = "center" id = "customers" >
+			
+  <thead>
+    <tr>
+      <th>Sezona</th>
+      <th><form action="/to/se/more/ujemat">
+			Igralec: <input type="text" list="ime" name="ime" placeholder="Vnesi igralca">
+			<input type="submit" value="Išči">
+			
+			<datalist id="ime">
+			
+				{# %for igralec in vsi_igralci:
+				<option>{{igralec[0]}}</option>
+			%end #}
+			
+
+		</datalist>
+			
+		</form>
+		</th>
+      <th><form action="/to/se/more/ujemat2">
+			Klub: <input type="text" list="ime2" name="ime2" placeholder="Vnesi klub">
+			<input type="submit" value="Išči">
+			
+		<datalist id="ime2">
+			
+			{# %for klub in vsi:
+				<option>{{klub}}</option>
+			%end#}
+			
+
+		</datalist>
+			
+		</form>
+		</th>
+	  </tr>
+
+
+
+
+  </thead>
+  <tbody>
+	{#<!-- % for sezona,igralec,klub in zip(sezone,igralci,klubi):
+	<tr>
+    
+    <td><a href="/sezona/{{sezona[0]}}">{{sezona[0]}}</a></td>
+		<td><a href="/{{igralec[0]}}">{{igralec[0]}}</a></td>
+    <td><a href="/klub/{{klub[0]}}">{{klub[0]}}</a></td>
+    
+    % end
+	</tr> -->#}
+	</tbody>
+</table>
+{% endblock %}
