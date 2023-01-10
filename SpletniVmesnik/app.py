@@ -42,14 +42,12 @@ def get_user():
     '''
     Pogleda, kdo je uporabnik
     '''
-    
     uporabniskoIme = request.cookies.get('uporabniskoIme')
-    print(uporabniskoIme)
     if uporabniskoIme is not None:
-        # preverimo če obstaja
-        
+        api_url = f"http://127.0.0.1:5002/user/check/{uporabniskoIme}" # TO DELA
+        response = requests.get(api_url)
         r = 'veljaven uporabnik'#model.Uporabnik(uporabniskoIme).jeUporabnik(conn)
-        if r is not None:
+        if response[0]:
             # uporabnik obstaja, vrnemo njegove podatke
             return uporabniskoIme
     # Če pridemo do sem, uporabnik ni prijavljen, naredimo redirect
@@ -95,9 +93,13 @@ def izdelek(izdelek):
 
 @app.route('/SV/button')
 def dodaj_v_kosarico():
-    # api_url = f"http://127.0.0.1:5005/kosarica/{izdelek}"
+    print('asdasd')
+    api_url = f"http://127.0.0.1:5006/kosarica/1"
     kolicina = int(request.args.get("kolicina"))
     ime = request.args.get("ime_izdelka")
+    data = {'kolicina':kolicina,'izdelek':'Mleko','trgovina':'Tuš','cena':7.45}
+    response = requests.post(api_url,json=data)
+    print(response.json)
     print(ime)
     #kolicina.
     #print(kolicina)
@@ -138,24 +140,23 @@ def login():
 @app.route('/SV/login',methods = ['Post'])
 def login_post():
     '''Obdelaj izpolnjeno formo za prijavo'''
-    
     uporabniskoIme = request.form['uporabniskoIme']
     geslo = password_md5(request.form['geslo']) #zakodiramo
-    api_url = f"http://127.0.0.1:5002/user/login/{uporabniskoIme}/{geslo}"
-    # response = requests.get(api_url)
-    # response.json()
 
-    poizvedba = True
-    if poizvedba is None:
+    api_url = f"http://127.0.0.1:5002/user/login"
+    data = {'username': uporabniskoIme, 'password':geslo}
+    response = requests.get(api_url,json=data)
+    response = response.json
+    # response = [True]
+    if not response[0]:
         # Uporabnisko ime in geslo se ne ujemata
         return render_template('login.html',napaka = 'Uporabnik ne obstaja.',uporabniskoIme=None)
 
     else:
         resp = make_response('/SV/')
-       
         resp.set_cookie('uporabniskoIme', uporabniskoIme)
         print(Flask.session_cookie_name)
-        print(request.cookies.get(uporabniskoIme))
+        print(request.cookies.get('uporabniskoIme'))
         #response.set_cookie('uporabniskoIme', uporabniskoIme, path='/', secret=secret)
         
         return redirect('/SV/')
@@ -183,9 +184,14 @@ def register_post():
         return render_template('register.html', uporabniskoIme=uporabniskoIme, napaka='Gesli se ne ujemata.')
     else:
         geslo = password_md5(geslo1)
-        poizvedba = True #apiklic
-        if poizvedba:
-            resp = make_response('(/SV/')
+        api_url = f"http://127.0.0.1:5002/user/add"
+        data = {'username': uporabniskoIme, 'password':geslo}
+        response = requests.get(api_url,json=data)
+        response = response.json
+        print(response)
+        response = [True] #apiklic
+        if response[0]:
+            resp = make_response('/SV/')
             resp.set_cookie('uporabniskoIme', uporabniskoIme, path='/')
             return redirect('/SV/')
         else:

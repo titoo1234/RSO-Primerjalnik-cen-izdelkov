@@ -28,14 +28,26 @@ class Kosarica(Resource):
         except Exception as e:
             "Error: " + str(e), 500
 
-    def post(self,id,izdelek,trgovina,kolicina,cena):
+    def post(self,id):#,izdelek,trgovina,kolicina,cena
         try:
-            query = f"INSERT INTO kosarica values({id},{izdelek},{trgovina},{kolicina},{cena});"#SELECT * FROM Uporabniki Where {id} = Id
+            podatki = request.json
+            izdelek = podatki['izdelek']
+            trgovina = podatki['trgovina']
+            cena = podatki['cena']
+            kolicina = podatki['kolicina']
+            
+            
+            query = f"INSERT INTO kosarica values ({id},'{izdelek}','{trgovina}',{kolicina},{cena});"#SELECT * FROM Uporabniki Where {id} = Id
             conn = start_connDB()
-            df = pd.read_sql_query(query, conn)
-            result = df.to_dict("records")
+            # df = pd.read_sql_query(query, conn)
+            # result = df.to_dict("records")
+
+            print(query)
+            cursor = conn.cursor()
+            cursor.execute(query)
+            cursor.close()
             conn.close()
-            return result, 200
+            return [True], 200
         except Exception as e:
             "Error: " + str(e), 500
 
