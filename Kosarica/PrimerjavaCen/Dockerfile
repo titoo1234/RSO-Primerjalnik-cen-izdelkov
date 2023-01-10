@@ -2,8 +2,8 @@
 FROM tadeorubio/pyodbc-msodbcsql17
 
 # copy the requirements file into the image
-COPY ./Kosarica/requirements.txt /app/requirements.txt
-#Kosarica/
+COPY ./Katalog/requirements.txt /app/requirements.txt
+#/Katalog/
 # switch working directory
 WORKDIR /app
 
@@ -16,9 +16,11 @@ RUN pip install -r requirements.txt
 
 # copy every content from the local file to the image
 COPY . /app
-EXPOSE 5001
+
+EXPOSE 5000
+
 # configure the container to run in an executed manner
 ENTRYPOINT [ "python" ]
 
-CMD ["./Kosarica/app.py" ]
-#/Kosarica
+CMD ["./Katalog/app.py" ]
+#Katalog/

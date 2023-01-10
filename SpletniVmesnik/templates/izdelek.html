@@ -24,32 +24,37 @@
 	  color: white;
 	}
 	</style>
-
-<img src="/static/s1.jpg", alt="Izdelki" style="height: 200px" align = "down">
-			
-
+<h1 name="ime_izdelka">{{izdelek}}</h1>		
+<img src = {{slika}} alt = "slika">
 <table is-fullwidth class="table" align = "center" id = "customers" >
 			
   <thead>
     <tr>
-      <th>Izdelek</th>
-    
+      <th>Trgovina</th>
+	  <th>Cena</th>
       
 	  </tr>
-
-
-
 
   </thead>
   <tbody>
 	
 	<tr>
-	{% for izdelek in izdelki:%}
-    <td><a href="/izdelek/{{izdelek}}">{{izdelek}}</a></td>
+	{% for trgovina,cena in zip:%}
+    <td>{{trgovina}}</a></td>
+	<td>{{cena}}</a></td>
 
 	</tr> 
      {% endfor %}
 	
 	</tbody>
 </table>
+
+<button type="button">DODAJ V KOŠARICO!</button>
+<form action="/button">
+	<label for="fname">Količina:</label><br>
+	<label abc="izd">{{izdelek}}</label>
+	<input type="int" id="fname" name="kolicina" value=1><br>
+  
+	<input type="submit" value="Dodaj v kosarico">
+  </form> 
 {% endblock %}
