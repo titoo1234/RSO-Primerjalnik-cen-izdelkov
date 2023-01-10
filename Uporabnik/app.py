@@ -68,11 +68,11 @@ def unbreak_ms():
 def check_login():
     ime = request.json["username"]
     geslo = request.json["password"]
-    return [preveri_ime_geslo(ime, geslo)]
+    return [preveri_ime_geslo(ime, geslo)], 200
 
 @app.route("/user/check/<string:ime>", methods=["GET"])
 def check_user(ime):
-    return [obstaja_uporabnik(ime)]
+    return [obstaja_uporabnik(ime)], 200
 
 
 

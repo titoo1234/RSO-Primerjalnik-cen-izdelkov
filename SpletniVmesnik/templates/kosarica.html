@@ -40,10 +40,12 @@
   <tbody>
 	
 	<tr>
-	{% for izdelek,kolicina,cena in zip:%}
+	{% for izdelek,kolicina,cena1,cena2,cena3 in zip:%}
     <td>{{izdelek}}</a></td>
     <td>{{kolicina}}</a></td>
-	<td>{{cena}}</a></td>
+	<td>{{cena1}}</a></td>
+	<td>{{cena2}}</a></td>
+	<td>{{cena3}}</a></td>
 
 	</tr> 
      {% endfor %}

@@ -6,53 +6,9 @@ from flask_sqlalchemy import SQLAlchemy
 from prometheus_flask_exporter import PrometheusMetrics
 from bs4 import BeautifulSoup
 import hashlib
+from funkcije_SV import *
 broken = False
 secret = 'skrivnost'
-
-def json_to_table(tabJson):
-    kluci = list(tabJson[0].keys())
-    vrni = [[] for i in range(len(kluci))]
-    for sl in tabJson:
-        i = 0
-        for kl in kluci:
-            vrni[i].append(sl[kl])
-            i += 1
-    return vrni
-def poisci_url(niz):
-    '''
-    Poišče prvo sliko, ki jo najdemo v brskalniku
-    '''
-    url = 'https://www.google.com/search?q={0}&tbm=isch'.format(niz)
-    content = requests.get(url).content
-    soup = BeautifulSoup(content,'lxml')
-    images = soup.findAll('img')
-    vrni = str(images[1]).split('src="')[1].split(';')[0]
-    return vrni
-
-def password_md5(s):
-    '''
-    Vrni MD5 hash danega UTF-8 niza. Gesla vedno spravimo v bazo
-    kodirana s to funkcijo.
-    '''
-    h = hashlib.md5()
-    h.update(s.encode('utf-8'))
-    return h.hexdigest()
-
-def get_user():
-    '''
-    Pogleda, kdo je uporabnik
-    '''
-    uporabniskoIme = request.cookies.get('uporabniskoIme')
-    if uporabniskoIme is not None:
-        api_url = f"http://127.0.0.1:5002/user/check/{uporabniskoIme}" # TO DELA
-        response = requests.get(api_url)
-        r = 'veljaven uporabnik'#model.Uporabnik(uporabniskoIme).jeUporabnik(conn)
-        if response[0]:
-            # uporabnik obstaja, vrnemo njegove podatke
-            return uporabniskoIme
-    # Če pridemo do sem, uporabnik ni prijavljen, naredimo redirect
-    else:
-        return None
 
 
 def create_app():
@@ -88,7 +44,7 @@ def izdelek(izdelek):
     trgovine=['Tuš','Mercator','Spar']
     cene = [1.21,1.52,1.54]
     zip1 = zip(trgovine,cene)
-    return render_template('izdelek.html', zip = zip1,slika = slika_url,izdelek = izdelek,user=get_user())#'osnova_spletnega_vmesnika.html'
+    return render_template('izdelek.html', zip = zip1,slika = slika_url,izdelek = izdelek,uporabniskoIme=get_user())#'osnova_spletnega_vmesnika.html'
 
 
 @app.route('/SV/button')
@@ -111,17 +67,25 @@ def dodaj_v_kosarico():
 def kosarica(uporabnik):
 
     # TODO preveri ali je pravi uporabnik... 
-    # api_url = f"http://127.0.0.1:5005/kosarica/{uporabnik}"
+    api_url = f"http://127.0.0.1:5006/kosarica/{uporabnik}"
     
-    # response = requests.get(api_url)
-    # response.json()
+    response = requests.get(api_url)
+    response = response.json()
     slika_url = poisci_url(izdelek)
-    Izdelek = ['Mleko','Mleko','Mleko']
-    Kolicina = [1,1,1]
-    Cena = [1.12,1.13,2.14]
-    zip1 = zip(Izdelek,Kolicina,Cena)
-    uporabniskoIme = 1
-    return render_template('kosarica.html', zip = zip1, uporabniskoIme = uporabniskoIme)#'osnova_spletnega_vmesnika.html'
+    vse_tabele = json_to_table(response)
+    Izdelki = vse_tabele[0]
+    Kolicine = vse_tabele[1]
+    Cene = vse_tabele[2]
+    #Izdelek = ['Mleko','Mleko','Mleko']
+    #Kolicina = [1,1,1]
+    #Cena = [1.12,1.13,2.14]
+    rez = []
+    for i in range(0, len(Izdelki), 3):
+        rez.append((Izdelki[i], Kolicine[i], Cene[i], Cene[i + 1],Cene[i + 2]))
+
+    #zip1 = zip(Izdelek,Kolicina,Cena)
+    uporabniskoIme = get_user()
+    return render_template('kosarica.html', zip = rez, uporabniskoIme = uporabniskoIme)#'osnova_spletnega_vmesnika.html'
 
 @app.route('/SV/buttonZbrisiKosarico')
 def zbrisiKosarico():
@@ -146,29 +110,31 @@ def login_post():
     api_url = f"http://127.0.0.1:5002/user/login"
     data = {'username': uporabniskoIme, 'password':geslo}
     response = requests.get(api_url,json=data)
-    response = response.json
+    #response = response.json
+    response = response.json()
     # response = [True]
     if not response[0]:
         # Uporabnisko ime in geslo se ne ujemata
         return render_template('login.html',napaka = 'Uporabnik ne obstaja.',uporabniskoIme=None)
 
     else:
-        resp = make_response('/SV/')
+        resp = make_response(redirect('/SV/'))
         resp.set_cookie('uporabniskoIme', uporabniskoIme)
-        print(Flask.session_cookie_name)
-        print(request.cookies.get('uporabniskoIme'))
+        #print(Flask.session_cookie_name)
+        #print(request.cookies.get('uporabniskoIme'))
         #response.set_cookie('uporabniskoIme', uporabniskoIme, path='/', secret=secret)
         
-        return redirect('/SV/')
+        #return redirect('/SV/')
+        return resp
 
 @app.route('/SV/logout')
 def logout():
     '''
     Pobrisi piškotke
     '''
-    resp = make_response()
+    resp = make_response(redirect("/SV/"))
     resp.delete_cookie('uporabniskoIme')
-    redirect('/SV/')
+    return resp
 
 @app.route('/SV/register')
 def register():
@@ -178,22 +144,24 @@ def register():
 def register_post():
     '''Registrira novega uporabnika.'''
     uporabniskoIme = request.form['uporabniskoIme']
+    print("ASSDSADDSDASDFSF")
     geslo1 = request.form['geslo1']
     geslo2 = request.form['geslo2']
     if not geslo1 == geslo2:
         return render_template('register.html', uporabniskoIme=uporabniskoIme, napaka='Gesli se ne ujemata.')
     else:
+        
         geslo = password_md5(geslo1)
         api_url = f"http://127.0.0.1:5002/user/add"
         data = {'username': uporabniskoIme, 'password':geslo}
-        response = requests.get(api_url,json=data)
-        response = response.json
+        response = requests.post(api_url,json=data)
+        response = response.json()
         print(response)
-        response = [True] #apiklic
+        #response = [True] #apiklic
         if response[0]:
-            resp = make_response('/SV/')
-            resp.set_cookie('uporabniskoIme', uporabniskoIme, path='/')
-            return redirect('/SV/')
+            resp = make_response(redirect('/SV/'))
+            resp.set_cookie('uporabniskoIme', uporabniskoIme)
+            return resp
         else:
             return render_template('register.html', uporabniskoIme=uporabniskoIme, napaka='To uporabnisko ime ze obstaja.')
 
@@ -228,4 +196,4 @@ def register_post():
 
 
 if __name__ == '__main__':
-    app.run(debug=False, host="0.0.0.0", port=5004)
+    app.run(host="0.0.0.0", port=5004)

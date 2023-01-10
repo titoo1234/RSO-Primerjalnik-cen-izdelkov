@@ -11,7 +11,7 @@ from kosarica import Kosarica
 def create_app():
     app = Flask(__name__)
     api = Api(app)
-    api.add_resource(Kosarica, '/kosarica/<int:id>')
+    api.add_resource(Kosarica, '/kosarica/<string:ime>')
     return app
 
 app = create_app()

@@ -17,9 +17,10 @@ requests_total = Counter('flask_http_requests_total', 'VSI KLICI NA /user/<id>',
 requests_summary = Summary('flask_http_requests_per_second', 'ŠTO NEVEM VEČ KA POMENI', ['method', 'endpoint'])
 
 class Kosarica(Resource):
-    def get(self,id):
+    def get(self,ime):
         try:
-            query = f"SELECT * FROM kosarica where id = '{id}';"#SELECT * FROM Uporabniki Where {id} = Id
+            query = f"SELECT izdelek,kolicina,cena FROM kosarica INNER JOIN uporabniki ON kosarica.uporabnik = uporabniki.id WHERE uporabniki.ime = '{ime}'"
+            #query = f"SELECT * FROM kosarica where id = '{id}';"#SELECT * FROM Uporabniki Where {id} = Id
             conn = start_connDB()
             df = pd.read_sql_query(query, conn)
             result = df.to_dict("records")

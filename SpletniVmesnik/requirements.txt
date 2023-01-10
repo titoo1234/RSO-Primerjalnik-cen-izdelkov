@@ -12,3 +12,7 @@ pyodbc==4.0.34
 dill==0.3.5.1
 flask_sqlalchemy==3.0.2
 psycopg2==2.9.5
+flask_restx==1.0.3
+prometheus_flask_exporter==0.21.0
+bs4==0.0.1
+lxml==4.9.2
