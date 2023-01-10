@@ -14,7 +14,7 @@ from Models.Exceptions import *
 import urllib.parse as up
 import psycopg2
 import pandas as pd
-from connections import start_connDB
+import connections
 #from threading import Lock
 #lock = Lock()
 
@@ -32,28 +32,10 @@ class Uporabnik(Resource):
             if id is None:
                 try:
                     query = f"SELECT Id,Ime FROM Uporabniki;"
-                    # up.uses_netloc.append("postgres")
-                    # url = up.urlparse("postgres://fzhvzwic:hjYYIyExOk4_UXtKv9BoWkqeso0gVhlB@peanut.db.elephantsql.com/fzhvzwic")
-                    # conn = psycopg2.connect(database=url.path[1:], user=url.username, password=url.password, host='peanut.db.elephantsql.com', port=url.port )
-                    # conn.set_session(autocommit=True)
-                    conn = start_connDB()
-                    # cur = conn.cursor()
+                    conn = connections.start_connDB()
                     df = pd.read_sql_query(query, conn)
                     result = df.to_dict("records")
                     conn.close()
-                    #result = AppResult(True, "", result)
-
-                    # with lock:
-                    #     requests_summary._lock
-                    #     count = requests_summary.labels(method='GET', endpoint='/uporabnik')._count
-                    #     summ = requests_summary.labels(method='GET', endpoint='/uporabnik')._sum
-                        
-                    #     if count > 0:
-                    #         requests_gauge.labels(method="GET", endpoint="/uporabnik").set(summ / count)
-                    #         requests_summary._lock.release
-
-
-                    #return result.toJSON()
                     return result, 200
                 except Exception as e:
                     "Error: " + str(e), 500 #mogoče redirect na /break????
@@ -61,30 +43,18 @@ class Uporabnik(Resource):
             else:
                 try:
                     query = f"SELECT * FROM Uporabniki Where {id} = Id;"
-                    up.uses_netloc.append("postgres")
-                    url = up.urlparse("postgres://fzhvzwic:hjYYIyExOk4_UXtKv9BoWkqeso0gVhlB@peanut.db.elephantsql.com/fzhvzwic")
-                    conn = psycopg2.connect(database=url.path[1:], user=url.username, password=url.password, host='peanut.db.elephantsql.com', port=url.port )
-                    conn.set_session(autocommit=True)
+                    conn = connections.start_connDB()
                     # cur = conn.cursor()
                     df = pd.read_sql_query(query, conn)
                     result = df.to_dict("records")
                     conn.close()
-                    #result = AppResult(True, "", result)
-                    #return result.toJSON()
                     return result, 200
                 except Exception as e:
                     "Error: " + str(e), 500
 
     def delete(self, id):
         try:
-            #name = request.json["username"]
-            #password = request.json["password"]
-            #query = f"SELECT Id,Ime FROM Uporabniki;"
-            #query = "INSERT INTO Uporabniki (ime, geslo, admin) VALUES ('test3', '1234567', 0);"
-            up.uses_netloc.append("postgres")
-            url = up.urlparse("postgres://fzhvzwic:hjYYIyExOk4_UXtKv9BoWkqeso0gVhlB@peanut.db.elephantsql.com/fzhvzwic")
-            conn = psycopg2.connect(database=url.path[1:], user=url.username, password=url.password, host='peanut.db.elephantsql.com', port=url.port )
-            conn.set_session(autocommit=True)
+            conn = connections.start_connDB()
             cur = conn.cursor()
             cur.execute('DELETE FROM Uporabniki WHERE "id" = %s;', (id,))
             cur.close()

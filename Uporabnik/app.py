@@ -1,13 +1,18 @@
 """Code for the flask app."""
 # import sys
 # sys.path.append("../")
-from flask import Flask
+from flask import Flask, request
 #from flask_restful import Api#, Resource, reqparse
 from flask_restx import Api
 from flask_sqlalchemy import SQLAlchemy
+import flask
 
 from prometheus_flask_exporter import PrometheusMetrics
 import connections
+import hashlib
+import config
+from funkcije_uporabnik import *
+
 
 #import logging
 
@@ -59,6 +64,17 @@ def unbreak_ms():
     broken = False
     return "You revived the microservice user"
 
-#db = SQLAlchemy(app)
+@app.route("/user/login", methods=["GET"])
+def check_login():
+    ime = request.json["username"]
+    geslo = request.json["password"]
+    return [preveri_ime_geslo(ime, geslo)]
+
+@app.route("/user/check/<string:ime>", methods=["GET"])
+def check_user(ime):
+    return [obstaja_uporabnik(ime)]
+
+
+
 if __name__ == '__main__':
     app.run(debug=False, host="0.0.0.0", port=5002)
