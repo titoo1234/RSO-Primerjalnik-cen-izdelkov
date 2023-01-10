@@ -199,7 +199,18 @@ p {
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       
       <ul>
-          <li><a  class="one" href="/">Domov</a></li>
+          <li><a  class="one" href="/SV/">Domov</a></li>
+
+        {% if uporabniskoIme: %}
+        <li> <a class="one" href="/SV/kosarica/1">Kosarica</a></li>
+        {% endif %}
+      
+          
+            {% if uporabniskoIme: %}
+            <li> <a class="one" href="/SV/logout">Odjava: {{uporabniskoIme}}</a></li>
+            {% else:%}
+            <li><a class="one" href="/SV/login">Prijava</a></li>
+            {% endif %}
        
         <!-- % if uporabniskoIme:
         
@@ -264,7 +275,7 @@ p {
 	</head>
 
 	<body align = "center">
-		<h1 class="title is-1"><a href="/">PRIMERJALNIK CEN IZDELKOV</a></h1>
+		<h1 class="title is-1"><a href="/SV/">PRIMERJALNIK CEN IZDELKOV</a></h1>
 
 
     

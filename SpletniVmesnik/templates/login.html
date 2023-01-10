@@ -1,0 +1,21 @@
+{% extends 'osnova_spletnega_vmesnika.html' %} 
+{% block main %}
+<form class="form-signin" method="post">
+
+    <a href="/"></a>
+    <h1 class="h3 mb-3 font-weight-normal">Prijava</h1>
+    <label for="vstaviUporabniskoIme" class="sr-only">Uporabniško ime</label>
+    <input type="uporabniskoIme" id="vstaviUporabniskoIme" class="form-control" placeholder="Uporabnisko ime" name="uporabniskoIme" required autofocus>
+    <label for="vstaviGeslo" class="sr-only">Geslo</label>
+    <input type="password" id="vstaviGeslo" class="form-control" placeholder="Geslo" name="geslo" required>
+    <div class="checkbox mb-3">
+    </div>
+    {%if napaka: %}
+        <div class="alert alert-warning">{{napaka}}</div>
+    {% endif %}
+    <button class="btn btn-lg btn-primary btn-block" type="submit">Prijava</button>
+    <a class="btn btn-lg btn-primary btn-block" href="/SV/register">Registracija</a>
+
+</form>
+
+{% endblock %}

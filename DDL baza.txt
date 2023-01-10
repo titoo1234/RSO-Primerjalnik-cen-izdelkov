@@ -55,10 +55,11 @@ CREATE TABLE Uporabniki (
     Admin INT
 );
 CREATE TABLE Kosarica (  
-    Uporabnik    INT REFERENCES Uporabniki (Id),
-    Izdelek           VARCHAR(100)    NOT NULL,
+    Uporabnik     INT REFERENCES Uporabniki (Id),
+    Izdelek       VARCHAR(100)    NOT NULL,
     Trgovina      VARCHAR(100) NOT NULL,
-    Cena          DECIMAL NOT NULL,
+    Kolicina      INT NOT NULL,
+    Cena          DECIMAL NOT NULL
 );
 
 

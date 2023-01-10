@@ -24,32 +24,35 @@
 	  color: white;
 	}
 	</style>
-
-<img src="/static/s1.jpg", alt="Izdelki" style="height: 200px" align = "down">
-			
-
+	
 <table is-fullwidth class="table" align = "center" id = "customers" >
 			
   <thead>
     <tr>
       <th>Izdelek</th>
-    
-      
+      <th>Količina</th>
+      <th>Tuš</th>
+      <th>Mercator</th>
+      <th>Spar</th>
 	  </tr>
-
-
-
 
   </thead>
   <tbody>
 	
 	<tr>
-	{% for izdelek in izdelki:%}
-    <td><a href="/SV/izdelek/{{izdelek}}">{{izdelek}}</a></td>
+	{% for izdelek,kolicina,cena in zip:%}
+    <td>{{izdelek}}</a></td>
+    <td>{{kolicina}}</a></td>
+	<td>{{cena}}</a></td>
 
 	</tr> 
      {% endfor %}
 	
 	</tbody>
 </table>
+
+
+<form action="/buttonZbrisiKosarico">
+	<input type="submit" value="Zbriši podatke iz košarice">
+  </form> 
 {% endblock %}

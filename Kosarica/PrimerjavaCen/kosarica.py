@@ -28,9 +28,9 @@ class Kosarica(Resource):
         except Exception as e:
             "Error: " + str(e), 500
 
-    def post(self,id,izdelek):
+    def post(self,id,izdelek,trgovina,kolicina,cena):
         try:
-            query = f"SELECT * FROM kosarica where id = '{id}';"#SELECT * FROM Uporabniki Where {id} = Id
+            query = f"INSERT INTO kosarica values({id},{izdelek},{trgovina},{kolicina},{cena});"#SELECT * FROM Uporabniki Where {id} = Id
             conn = start_connDB()
             df = pd.read_sql_query(query, conn)
             result = df.to_dict("records")
