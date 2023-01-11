@@ -51,9 +51,9 @@
 
 <form action="/SV/button">
 	<label for="fname">Količina:</label><br>
-	<label abc="izd">{{izdelek}}</label>
+	
 	<input type="int" id="fname" name="kolicina" value=1><br>
-  
+	<input type="hidden" id="izdelek" name="izdelek" value={{izdelek}}><br>
 	<input type="submit" value="Dodaj v kosarico">
   </form> 
 {% endblock %}

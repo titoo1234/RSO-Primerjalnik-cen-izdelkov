@@ -5,6 +5,8 @@ from flask import request
 import requests
 
 def json_to_table(tabJson):
+    if tabJson == []:
+        return []
     kluci = list(tabJson[0].keys())
     vrni = [[] for i in range(len(kluci))]
     for sl in tabJson:
