@@ -6,13 +6,13 @@ metadata:
     kompose.version: 1.26.0 (40646f47)
   creationTimestamp: null
   labels:
-    io.kompose.service: db-fill
-  name: db-fill
+    io.kompose.service: appspletnivmesnik
+  name: appspletnivmesnik
 spec:
   replicas: 1
   selector:
     matchLabels:
-      io.kompose.service: db-fill
+      io.kompose.service: appspletnivmesnik
   strategy: {}
   template:
     metadata:
@@ -21,11 +21,13 @@ spec:
         kompose.version: 1.26.0 (40646f47)
       creationTimestamp: null
       labels:
-        io.kompose.service: db-fill
+        io.kompose.service: appspletnivmesnik
     spec:
       containers:
-        - image: tito1234/primerjalnik_cen:DBNapolni2022-12-05-00-59-14
-          name: fill-db
+        - image: tito1234/primerjalnik_cen:SpletniVmesnik
+          name: appspletnivmesnik
+          ports:
+            - containerPort: 5004
           resources: {}
       restartPolicy: Always
 status: {}
