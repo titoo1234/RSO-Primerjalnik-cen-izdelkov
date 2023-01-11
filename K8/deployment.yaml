@@ -13,7 +13,7 @@ spec:
         app: katalog
     spec:
       containers:
-        - image: tito1234/primerjalnik_cen:Katalog2022-12-02-18-24-31
+        - image: tito1234/primerjalnik_cen:Katalog
           name: katalog
           
           ports:

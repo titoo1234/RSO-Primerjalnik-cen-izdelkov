@@ -28,6 +28,23 @@ spec:
           name: appprimerjavacen
           ports:
             - containerPort: 5005
+              name: server
+              protocol: TCP                
           resources: {}
       restartPolicy: Always
 status: {}
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: appprimerjavacen
+spec:
+  type: ClusterIP
+  ports:
+    - port: 5005
+      protocol: TCP
+      targetPort: server
+  selector:
+    app: appprimerjavacen

@@ -28,6 +28,24 @@ spec:
           name: appspletnivmesnik
           ports:
             - containerPort: 5004
+              name: server
+              protocol: TCP                
           resources: {}
       restartPolicy: Always
 status: {}
+
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: appspletnivmesnik
+spec:
+  type: ClusterIP
+  ports:
+    - port: 5004
+      protocol: TCP
+      targetPort: server
+  selector:
+    app: appspletnivmesnik

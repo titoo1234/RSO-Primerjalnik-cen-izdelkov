@@ -28,6 +28,23 @@ spec:
           name: apppridobivanjepodatkov
           ports:
             - containerPort: 5008
+              name: server
+              protocol: TCP                
           resources: {}
       restartPolicy: Always
 status: {}
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: apppridobivanjepodatkov
+spec:
+  type: ClusterIP
+  ports:
+    - port: 5008
+      protocol: TCP
+      targetPort: server
+  selector:
+    app: apppridobivanjepodatkov

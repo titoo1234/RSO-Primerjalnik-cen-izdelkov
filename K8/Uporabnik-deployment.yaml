@@ -28,6 +28,24 @@ spec:
           name: appuporabnik
           ports:
             - containerPort: 5002
+              name: server
+              protocol: TCP                
           resources: {}
       restartPolicy: Always
 status: {}
+
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: appuporabnik
+spec:
+  type: ClusterIP
+  ports:
+    - port: 5002
+      protocol: TCP
+      targetPort: server
+  selector:
+    app: appuporabnik
