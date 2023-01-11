@@ -7,6 +7,26 @@ from prometheus_flask_exporter import PrometheusMetrics
 from bs4 import BeautifulSoup
 import hashlib
 from funkcije_SV import *
+
+
+import logging
+from logstash_async.handler import AsynchronousLogstashHandler
+from logstash_async.handler import LogstashFormatter
+
+logger = logging.getLogger("logstash")
+logger.setLevel(logging.INFO)
+
+handler = AsynchronousLogstashHandler(
+    host='bf7b5e36-738d-4386-ab05-bc490b2f0abc-ls.logit.io', 
+    port=23757,  
+    ssl_verify=False,
+    database_path='')
+
+formatter = LogstashFormatter()
+handler.setFormatter(formatter)
+
+logger.addHandler(handler)
+
 broken = False
 secret = 'skrivnost'
 
@@ -19,9 +39,14 @@ def create_app():
 
 app = create_app()
 # metrics = PrometheusMetrics(app, group_by="endpoint", path="/user/metrics")
-
+#app.logger.addHandler(handler)
 @app.route("/SV/")
 def naslovna():
+    logger.info('začetna stran')
+    #logger.error('python-logstash-async: test info message.')
+    #app.logger.error('python-logstash-async: test info message.')
+    #logger.warning('python-logstash-async: test warning message.')
+    #logger.debug('python-logstash-async: test debug message.')
     # api_url = "http://127.0.0.1:5003/katalog" # TO DELA
     # response = requests.get(api_url)
     # vsi_izdelki = json_to_table(response.json())
@@ -41,6 +66,7 @@ def izdelek(izdelek):
     # vsi_izdelki = json_to_table(response.json())
     # trgovine = list(set(vsi_izdelki[1]))
     # cene = list(set(vsi_izdelki[2]))
+    logger.info(f'izdelek {izdelek}')
 
     slika_url = poisci_url(izdelek)
     trgovine=['Tuš','Mercator','Spar']
