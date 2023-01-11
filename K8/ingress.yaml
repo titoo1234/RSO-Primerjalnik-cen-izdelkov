@@ -15,41 +15,41 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: SpletniVmesnik
+                name: appspletnivmesnik
                 port:
                   number: 5004
           - path: /user(/|$)(.*)
             pathType: Prefix
             backend:
               service:
-                name: Uporabnik
+                name: appuporabnik
                 port:
                   number: 5002
           - path: /izdelek(/|$)(.*)
             pathType: Prefix
             backend:
               service:
-                name: PrimerjavaCen
+                name: appprimerjavacen
                 port:
                   number: 5005
           - path: /pridobivanjaPodatkov(/|$)(.*)
             pathType: Prefix
             backend:
               service:
-                name: PridobivanjePodatkov
+                name: apppridobivanjepodatkov
                 port:
                   number: 5008
           - path: /kosarica(/|$)(.*)
             pathType: Prefix
             backend:
               service:
-                name: Kosarica
+                name: appkosarica
                 port:
                   number: 5006
           - path: /katalog(/|$)(.*)
             pathType: Prefix
             backend:
               service:
-                name: Katalog
+                name: appkatalog
                 port:
                   number: 5003

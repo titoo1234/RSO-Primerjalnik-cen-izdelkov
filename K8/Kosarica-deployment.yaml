@@ -24,7 +24,7 @@ spec:
         io.kompose.service: appkosarica
     spec:
       containers:
-        - image: tito1234/primerjalnik_cen:Kosarica
+        - image: tito1234/primerjalnik_cen:Kosarica1
           name: appkosarica
           ports:
             - containerPort: 5006

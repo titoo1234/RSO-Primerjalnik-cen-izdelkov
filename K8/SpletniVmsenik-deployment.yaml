@@ -24,7 +24,7 @@ spec:
         io.kompose.service: appspletnivmesnik
     spec:
       containers:
-        - image: tito1234/primerjalnik_cen:SpletniVmesnik
+        - image: tito1234/primerjalnik_cen:SpletniVmesnik1
           name: appspletnivmesnik
           ports:
             - containerPort: 5004

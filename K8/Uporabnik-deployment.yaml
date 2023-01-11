@@ -24,7 +24,7 @@ spec:
         io.kompose.service: appuporabnik
     spec:
       containers:
-        - image: tito1234/primerjalnik_cen:Uporabnik
+        - image: tito1234/primerjalnik_cen:Uporabnik1
           name: appuporabnik
           ports:
             - containerPort: 5002
