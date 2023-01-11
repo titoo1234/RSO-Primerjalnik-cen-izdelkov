@@ -31,21 +31,29 @@ class Kosarica(Resource):
 
     def post(self,id):#,izdelek,trgovina,kolicina,cena
         try:
+            print("tuki smo")
             podatki = request.json
             izdelek = podatki['izdelek']
-            trgovina = podatki['trgovina']
-            cena = podatki['cena']
+            # trgovina = podatki['trgovina']
+            # cena = podatki['cena']
             kolicina = podatki['kolicina']
-            
-            
-            query = f"INSERT INTO kosarica values ({id},'{izdelek}','{trgovina}',{kolicina},{cena});"#SELECT * FROM Uporabniki Where {id} = Id
+            query0 = f"SELECT cena FROM izdelki WHERE izdelek = '{izdelek}'"
             conn = start_connDB()
+            df = pd.read_sql_query(query0, conn)
+            tab_cen = df.to_dict("records")
+            print(tab_cen)
+            
+            query1 = f"INSERT INTO kosarica values ({id},'{izdelek}','mercator',{kolicina},{tab_cen[0]});"#SELECT * FROM Uporabniki Where {id} = Id
+            query2 = f"INSERT INTO kosarica values ({id},'{izdelek}','spar',{kolicina},{tab_cen[1]});"#SELECT * FROM Uporabniki Where {id} = Id
+            query3 = f"INSERT INTO kosarica values ({id},'{izdelek}','tus',{kolicina},{tab_cen[2]});"#SELECT * FROM Uporabniki Where {id} = Id
             # df = pd.read_sql_query(query, conn)
             # result = df.to_dict("records")
 
-            print(query)
+            print(query1)
             cursor = conn.cursor()
-            cursor.execute(query)
+            cursor.execute(query1)
+            cursor.execute(query2)
+            cursor.execute(query3)
             cursor.close()
             conn.close()
             return [True], 200
