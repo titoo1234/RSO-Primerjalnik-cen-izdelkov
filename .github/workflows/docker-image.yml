@@ -31,44 +31,44 @@ jobs:
         with:
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
-      - name: Build and Push the Docker image Katalog1
+      - name: Build and Push the Docker image Katalog
         uses: docker/build-push-action@v3
         with:
           file: ./Katalog/Dockerfile
           push: true
-          tags: tito1234/primerjalnik_cen:Katalog
+          tags: tito1234/primerjalnik_cen:Katalog1
       - name: Build and Push the Docker image Uporabnik
         uses: docker/build-push-action@v3
         with:
           file: ./Uporabnik/Dockerfile
           push: true
-          tags: tito1234/primerjalnik_cen:Uporabnik
+          tags: tito1234/primerjalnik_cen:Uporabnik1
           
       - name: Build and Push the Docker image Kosarica
         uses: docker/build-push-action@v3
         with:
           file: ./Kosarica/Dockerfile
           push: true
-          tags: tito1234/primerjalnik_cen:Kosarica
+          tags: tito1234/primerjalnik_cen:Kosarica1
 
       - name: Build and Push the Docker image PrimerjavaCen
         uses: docker/build-push-action@v3
         with:
           file: ./PrimerjavaCen/Dockerfile
           push: true
-          tags: tito1234/primerjalnik_cen:PrimerjavaCen
+          tags: tito1234/primerjalnik_cen:PrimerjavaCen1
           
       - name: Build and Push the Docker image SpletniVmesnik
         uses: docker/build-push-action@v3
         with:
           file: ./SpletniVmesnik/Dockerfile
           push: true
-          tags: tito1234/primerjalnik_cen:SpletniVmesnik
+          tags: tito1234/primerjalnik_cen:SpletniVmesnik1
           
       - name: Build and Push the Docker image PridobivanjePodatkov
         uses: docker/build-push-action@v3
         with:
           file: ./PridobivanjePodatkov/Dockerfile
           push: true
-          tags: tito1234/primerjalnik_cen:PridobivanjePodatkov
+          tags: tito1234/primerjalnik_cen:PridobivanjePodatkov1
 
