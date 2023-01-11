@@ -36,39 +36,39 @@ jobs:
         with:
           file: ./Katalog/Dockerfile
           push: true
-          tags: tito1234/primerjalnik_cen:Katalog${{steps.time.outputs.time}}
+          tags: tito1234/primerjalnik_cen:Katalog
       - name: Build and Push the Docker image Uporabnik
         uses: docker/build-push-action@v3
         with:
           file: ./Uporabnik/Dockerfile
           push: true
-          tags: tito1234/primerjalnik_cen:Uporabnik${{steps.time.outputs.time}}
+          tags: tito1234/primerjalnik_cen:Uporabnik
           
       - name: Build and Push the Docker image Kosarica
         uses: docker/build-push-action@v3
         with:
           file: ./Kosarica/Dockerfile
           push: true
-          tags: tito1234/primerjalnik_cen:Kosarica${{steps.time.outputs.time}}
+          tags: tito1234/primerjalnik_cen:Kosarica
 
       - name: Build and Push the Docker image PrimerjavaCen
         uses: docker/build-push-action@v3
         with:
           file: ./PrimerjavaCen/Dockerfile
           push: true
-          tags: tito1234/primerjalnik_cen:PrimerjavaCen${{steps.time.outputs.time}}
+          tags: tito1234/primerjalnik_cen:PrimerjavaCen
           
       - name: Build and Push the Docker image SpletniVmesnik
         uses: docker/build-push-action@v3
         with:
           file: ./SpletniVmesnik/Dockerfile
           push: true
-          tags: tito1234/primerjalnik_cen:SpletniVmesnik${{steps.time.outputs.time}} 
+          tags: tito1234/primerjalnik_cen:SpletniVmesnik
           
       - name: Build and Push the Docker image PridobivanjePodatkov
         uses: docker/build-push-action@v3
         with:
           file: ./PridobivanjePodatkov/Dockerfile
           push: true
-          tags: tito1234/primerjalnik_cen:PridobivanjePodatkov${{steps.time.outputs.time}} 
+          tags: tito1234/primerjalnik_cen:PridobivanjePodatkov
 
