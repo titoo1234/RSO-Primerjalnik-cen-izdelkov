@@ -1,0 +1,9 @@
+INSERT INTO Izdelki VALUES ('Mleko', 'Mercator', 1.39);
+INSERT INTO Izdelki VALUES ('Mleko', 'Špar', 1.39);
+INSERT INTO Izdelki VALUES ('Mleko', 'Tuš', 1.69);
+INSERT INTO Izdelki VALUES ('Jajca', 'Mercator', 2.35);
+INSERT INTO Izdelki VALUES ('Jajca', 'Špar', 2.35);
+INSERT INTO Izdelki VALUES ('Jajca', 'Tuš', 3.19);
+INSERT INTO Izdelki VALUES ('Sok', 'Mercator', 1.79);
+INSERT INTO Izdelki VALUES ('Sok', 'Špar', 1.03);
+INSERT INTO Izdelki VALUES ('Sok', 'Tuš', 2.15);
