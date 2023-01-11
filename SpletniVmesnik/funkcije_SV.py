@@ -2,6 +2,7 @@ from bs4 import BeautifulSoup
 import requests
 import hashlib
 from flask import request
+import requests
 
 def json_to_table(tabJson):
     kluci = list(tabJson[0].keys())
@@ -50,3 +51,44 @@ def get_user():
     # else:
     #     return None
     ############################################################################## NEBRISAT
+# ZUNANJI APIJI
+def prevod(niz):
+    url = "https://deep-translate1.p.rapidapi.com/language/translate/v2"
+
+    payload = {
+        "q": niz,
+        "source": "en",
+        "target": "sl"
+    }
+    headers = {
+        "content-type": "application/json",
+        "X-RapidAPI-Key": "f152cd08b5msh52e4d2bcda3cbfap11d05ejsncaaad4e8d2df",
+        "X-RapidAPI-Host": "deep-translate1.p.rapidapi.com"
+    }
+
+    response = requests.request("POST", url, json=payload, headers=headers)
+    response = response.json()
+    return response['data']['translations']['translatedText']
+
+def lokacija():
+    url = "https://ip-address-tracker-free.p.rapidapi.com/rapidapi/ip"
+    headers = {
+        "X-RapidAPI-Key": "f152cd08b5msh52e4d2bcda3cbfap11d05ejsncaaad4e8d2df",
+        "X-RapidAPI-Host": "ip-address-tracker-free.p.rapidapi.com"
+    }
+    response = requests.request("GET", url, headers=headers)
+    response = response.json()
+    return response['city']
+
+def vreme_podatki():
+    mesto = lokacija()
+    url = "https://weatherapi-com.p.rapidapi.com/current.json"
+    querystring = {"q":mesto}
+    headers = {
+        "X-RapidAPI-Key": "f152cd08b5msh52e4d2bcda3cbfap11d05ejsncaaad4e8d2df",
+        "X-RapidAPI-Host": "weatherapi-com.p.rapidapi.com"
+    }
+    response = requests.request("GET", url, headers=headers, params=querystring)
+    response = response.json()
+    #response['current']['condition']
+    return response['current']['temp_c'],prevod(response['current']['condition']['text']),response['current']['condition']['icon']

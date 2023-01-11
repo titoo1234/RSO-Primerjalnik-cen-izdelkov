@@ -12,7 +12,7 @@ def create_app():
     app = Flask(__name__)
     api = Api(app)
     api.add_resource(Kosarica, '/kosarica/<string:ime>')
-    api.add_resource(Kosarica, '/kosarica/<int:id>')
+    # api.add_resource(Kosarica, '/kosarica/<int:id>')
     return app
 
 app = create_app()

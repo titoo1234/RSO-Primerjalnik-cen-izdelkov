@@ -29,7 +29,7 @@ class Kosarica(Resource):
         except Exception as e:
             "Error: " + str(e), 500
 
-    def post(self,id):#,izdelek,trgovina,kolicina,cena
+    def post(self,ime):#,izdelek,trgovina,kolicina,cena
         try:
             print("tuki smo")
             podatki = request.json
