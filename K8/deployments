@@ -1,0 +1,319 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.26.0 (40646f47)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: appkatalog
+  name: appkatalog
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: appkatalog
+  strategy: {}
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert
+        kompose.version: 1.26.0 (40646f47)
+      creationTimestamp: null
+      labels:
+        io.kompose.service: appkatalog
+    spec:
+      containers:
+        - image: tito1234/primerjalnik_cen:Katalog
+          name: appkatalog
+          ports:
+            - containerPort: 5003
+              name: server
+              protocol: TCP
+          resources: {}
+      restartPolicy: Always
+status: {}
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: appkatalog
+spec:
+  type: ClusterIP
+  ports:
+    - port: 5003
+      protocol: TCP
+      targetPort: server
+  selector:
+    app: appkatalog
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.26.0 (40646f47)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: appkosarica
+  name: appkosarica
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: appkosarica
+  strategy: {}
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert
+        kompose.version: 1.26.0 (40646f47)
+      creationTimestamp: null
+      labels:
+        io.kompose.service: appkosarica
+    spec:
+      containers:
+        - image: tito1234/primerjalnik_cen:Kosarica
+          name: appkosarica
+          ports:
+            - containerPort: 5006
+              name: server
+              protocol: TCP            
+          resources: {}
+      restartPolicy: Always
+status: {}
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: appkosarica
+spec:
+  type: ClusterIP
+  ports:
+    - port: 5006
+      protocol: TCP
+      targetPort: server
+  selector:
+    app: appkosarica
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.26.0 (40646f47)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: apppridobivanjepodatkov
+  name: apppridobivanjepodatkov
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: apppridobivanjepodatkov
+  strategy: {}
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert
+        kompose.version: 1.26.0 (40646f47)
+      creationTimestamp: null
+      labels:
+        io.kompose.service: apppridobivanjepodatkov
+    spec:
+      containers:
+        - image: tito1234/primerjalnik_cen:PridobivanjePodatkov
+          name: apppridobivanjepodatkov
+          ports:
+            - containerPort: 5008
+              name: server
+              protocol: TCP                
+          resources: {}
+      restartPolicy: Always
+status: {}
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: apppridobivanjepodatkov
+spec:
+  type: ClusterIP
+  ports:
+    - port: 5008
+      protocol: TCP
+      targetPort: server
+  selector:
+    app: apppridobivanjepodatkov
+
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.26.0 (40646f47)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: appprimerjavacen
+  name: appprimerjavacen
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: appprimerjavacen
+  strategy: {}
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert
+        kompose.version: 1.26.0 (40646f47)
+      creationTimestamp: null
+      labels:
+        io.kompose.service: appprimerjavacen
+    spec:
+      containers:
+        - image: tito1234/primerjalnik_cen:PrimerjavaCen
+          name: appprimerjavacen
+          ports:
+            - containerPort: 5005
+              name: server
+              protocol: TCP                
+          resources: {}
+      restartPolicy: Always
+status: {}
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: appprimerjavacen
+spec:
+  type: ClusterIP
+  ports:
+    - port: 5005
+      protocol: TCP
+      targetPort: server
+  selector:
+    app: appprimerjavacen
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.26.0 (40646f47)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: appspletnivmesnik
+  name: appspletnivmesnik
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: appspletnivmesnik
+  strategy: {}
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert
+        kompose.version: 1.26.0 (40646f47)
+      creationTimestamp: null
+      labels:
+        io.kompose.service: appspletnivmesnik
+    spec:
+      containers:
+        - image: tito1234/primerjalnik_cen:SpletniVmesnik
+          name: appspletnivmesnik
+          ports:
+            - containerPort: 5004
+              name: server
+              protocol: TCP                
+          resources: {}
+      restartPolicy: Always
+status: {}
+
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: appspletnivmesnik
+spec:
+  type: ClusterIP
+  ports:
+    - port: 5004
+      protocol: TCP
+      targetPort: server
+  selector:
+    app: appspletnivmesnik
+
+---
+
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.26.0 (40646f47)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: appuporabnik
+  name: appuporabnik
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: appuporabnik
+  strategy: {}
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert
+        kompose.version: 1.26.0 (40646f47)
+      creationTimestamp: null
+      labels:
+        io.kompose.service: appuporabnik
+    spec:
+      containers:
+        - image: tito1234/primerjalnik_cen:Uporabnik
+          name: appuporabnik
+          ports:
+            - containerPort: 5002
+              name: server
+              protocol: TCP                
+          resources: {}
+      restartPolicy: Always
+status: {}
+
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: appuporabnik
+spec:
+  type: ClusterIP
+  ports:
+    - port: 5002
+      protocol: TCP
+      targetPort: server
+  selector:
+    app: appuporabnik
