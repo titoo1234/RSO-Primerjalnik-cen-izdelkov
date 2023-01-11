@@ -91,4 +91,4 @@ def vreme_podatki():
     response = requests.request("GET", url, headers=headers, params=querystring)
     response = response.json()
     #response['current']['condition']
-    return response['current']['temp_c'],prevod(response['current']['condition']['text']),response['current']['condition']['icon']
+    return mesto,response['current']['temp_c'],prevod(response['current']['condition']['text']),response['current']['condition']['icon']

@@ -27,9 +27,11 @@ def naslovna():
     # vsi_izdelki = json_to_table(response.json())
     # vsi_izdelki = list(set(vsi_izdelki[0]))
 
+    mesto,temp,vreme,slika = vreme_podatki()
+
     vsi_izdelki = ['Mleko','Kruh','Špageti']
 
-    return render_template('zacetna_stran.html',izdelki=vsi_izdelki, uporabniskoIme=get_user())#'osnova_spletnega_vmesnika.html'
+    return render_template('zacetna_stran.html',izdelki=vsi_izdelki, uporabniskoIme=get_user(),mesto=mesto,temp=temp,vreme=vreme,slika=slika)#'osnova_spletnega_vmesnika.html'
 
 
 @app.route('/SV/izdelek/<izdelek>')

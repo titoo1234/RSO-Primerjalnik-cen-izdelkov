@@ -1,6 +1,9 @@
 {% extends 'osnova_spletnega_vmesnika.html' %} 
 {% block main %}
 <style>
+	h2 {
+ 		 font-size: 1.875em; /* 30px/16=1.875em */
+	}
 	#customers {
 	  font-family: Arial, Helvetica, sans-serif;
 	  border-collapse: collapse;
@@ -52,4 +55,11 @@
 	
 	</tbody>
 </table>
+<h2>{{mesto}} |
+	{{temp}} °C |
+	{{vreme}}</h2> <br>
+
+<img src = {{slika}} alt = "slika">
+
+
 {% endblock %}
