@@ -63,5 +63,12 @@ jobs:
         with:
           file: ./SpletniVmesnik/Dockerfile
           push: true
-          tags: tito1234/primerjalnik_cen:SpletniVmesnik${{steps.time.outputs.time}}      
+          tags: tito1234/primerjalnik_cen:SpletniVmesnik${{steps.time.outputs.time}} 
+          
+      - name: Build and Push the Docker image PridobivanjePodatkov
+        uses: docker/build-push-action@v3
+        with:
+          file: ./PridobivanjePodatkov/Dockerfile
+          push: true
+          tags: tito1234/primerjalnik_cen:PridobivanjePodatkov${{steps.time.outputs.time}} 
 
