@@ -51,30 +51,34 @@ def izdelek(izdelek):
 
 @app.route('/SV/button')
 def dodaj_v_kosarico():
-    print('asdasd')
-    api_url = f"http://127.0.0.1:5006/kosarica/1"
+    
+    uporabnik = get_user()
+    api_url = f"http://127.0.0.1:5006/kosarica/{uporabnik}"
     kolicina = int(request.args.get("kolicina"))
-    ime = request.args.get("ime_izdelka")
-    data = {'kolicina':kolicina,'izdelek':'Mleko','trgovina':'Tuš','cena':7.45}
+    ime = request.args.get("izdelek")
+    data = {'kolicina':kolicina,'izdelek':ime}
     response = requests.post(api_url,json=data)
-    print(response.json)
-    print(ime)
+    #print(response.json)
+    #print(ime)
     #kolicina.
     #print(kolicina)
 
     # TODO dodaj izdelek v košarico...
     return redirect('/SV/')#'osnova_spletnega_vmesnika.html'
 
-@app.route('/SV/kosarica/<uporabnik>')
-def kosarica(uporabnik):
+@app.route('/SV/kosarica')
+def kosarica():
 
     # TODO preveri ali je pravi uporabnik... 
+    uporabnik = get_user()
     api_url = f"http://127.0.0.1:5006/kosarica/{uporabnik}"
     
     response = requests.get(api_url)
     response = response.json()
     slika_url = poisci_url(izdelek)
     vse_tabele = json_to_table(response)
+    if vse_tabele == []:
+        return render_template('kosarica.html', zip = [], uporabniskoIme = uporabnik)
     Izdelki = vse_tabele[0]
     Kolicine = vse_tabele[1]
     Cene = vse_tabele[2]
@@ -86,16 +90,18 @@ def kosarica(uporabnik):
         rez.append((Izdelki[i], Kolicine[i], Cene[i], Cene[i + 1],Cene[i + 2]))
 
     #zip1 = zip(Izdelek,Kolicina,Cena)
-    uporabniskoIme = get_user()
-    return render_template('kosarica.html', zip = rez, uporabniskoIme = uporabniskoIme)#'osnova_spletnega_vmesnika.html'
+    #uporabniskoIme = get_user()
+    return render_template('kosarica.html', zip = rez, uporabniskoIme = uporabnik)#'osnova_spletnega_vmesnika.html'
 
 @app.route('/SV/buttonZbrisiKosarico')
 def zbrisiKosarico():
-    # api_url = f"http://127.0.0.1:5005/katalog/{izdelek}"
+    #api_url = f"http://127.0.0.1:5005/katalog/{izdelek}"
+    uporabnik = get_user()
+    api_url = f"http://127.0.0.1:5006/kosarica/{uporabnik}"
 
+    response = requests.delete(api_url)
 
-    # TODO rabimo podatek o ID uporabnika; zbrišemo stvari iz kosarice
-    return redirect('/')#'osnova_spletnega_vmesnika.html'
+    return redirect('/SV/')#'osnova_spletnega_vmesnika.html'
 
 
 @app.route('/SV/login')

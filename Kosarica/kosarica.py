@@ -31,25 +31,31 @@ class Kosarica(Resource):
 
     def post(self,ime):#,izdelek,trgovina,kolicina,cena
         try:
-            print("tuki smo")
+            #print("tuki smo")
+            
             podatki = request.json
             izdelek = podatki['izdelek']
             # trgovina = podatki['trgovina']
             # cena = podatki['cena']
             kolicina = podatki['kolicina']
-            query0 = f"SELECT cena FROM izdelki WHERE izdelek = '{izdelek}'"
+            query0 = f"SELECT cena FROM izdelki WHERE ime = '{izdelek}'"
             conn = start_connDB()
             df = pd.read_sql_query(query0, conn)
             tab_cen = df.to_dict("records")
-            print(tab_cen)
+            cena1 = round(tab_cen[0]["cena"] * kolicina, 2)
+            cena2 = round(tab_cen[1]["cena"] * kolicina, 2)
+            cena3 = round(tab_cen[2]["cena"] * kolicina, 2)
+            #print(tab_cen)
+            df = pd.read_sql_query(f"SELECT id FROM uporabniki WHERE ime = '{ime}'", conn)
+            id = df.to_dict("records")[0]["id"]
             
-            query1 = f"INSERT INTO kosarica values ({id},'{izdelek}','mercator',{kolicina},{tab_cen[0]});"#SELECT * FROM Uporabniki Where {id} = Id
-            query2 = f"INSERT INTO kosarica values ({id},'{izdelek}','spar',{kolicina},{tab_cen[1]});"#SELECT * FROM Uporabniki Where {id} = Id
-            query3 = f"INSERT INTO kosarica values ({id},'{izdelek}','tus',{kolicina},{tab_cen[2]});"#SELECT * FROM Uporabniki Where {id} = Id
+            query1 = f"INSERT INTO kosarica values ({id},'{izdelek}','Mercator',{kolicina},{cena1});"#SELECT * FROM Uporabniki Where {id} = Id
+            query2 = f"INSERT INTO kosarica values ({id},'{izdelek}','Spar',{kolicina},{cena2});"#SELECT * FROM Uporabniki Where {id} = Id
+            query3 = f"INSERT INTO kosarica values ({id},'{izdelek}','Tuš',{kolicina},{cena3});"#SELECT * FROM Uporabniki Where {id} = Id
             # df = pd.read_sql_query(query, conn)
             # result = df.to_dict("records")
 
-            print(query1)
+            #print(query1)
             cursor = conn.cursor()
             cursor.execute(query1)
             cursor.execute(query2)
@@ -59,6 +65,16 @@ class Kosarica(Resource):
             return [True], 200
         except Exception as e:
             "Error: " + str(e), 500
+
+    def delete(self, ime):
+        conn = start_connDB()
+        df = pd.read_sql_query(f"SELECT id FROM uporabniki WHERE ime = '{ime}'", conn)
+        id = df.to_dict("records")[0]["id"]
+        cur = conn.cursor()
+        cur.execute(f"DELETE FROM kosarica WHERE uporabnik={id}")
+        cur.close()
+        conn.close()
+        return [True], 200
 
 
 
