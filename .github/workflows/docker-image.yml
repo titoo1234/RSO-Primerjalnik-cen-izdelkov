@@ -51,17 +51,24 @@ jobs:
           push: true
           tags: tito1234/primerjalnik_cen:Kosarica${{steps.time.outputs.time}}
 
-      - name: create db
+      - name: Build and Push the Docker image PrimerjavaCen
         uses: docker/build-push-action@v3
         with:
-          file: ./Baza/Ustvari/Dockerfile
+          file: ./PrimerjavaCen/Dockerfile
           push: true
-          tags: tito1234/primerjalnik_cen:DBUstvari${{steps.time.outputs.time}}
-
-      - name: fill db
+          tags: tito1234/primerjalnik_cen:PrimerjavaCen${{steps.time.outputs.time}}
+          
+      - name: Build and Push the Docker image SpletniVmesnik
         uses: docker/build-push-action@v3
         with:
-          file: ./Baza/Napolni/Dockerfile
+          file: ./SpletniVmesnik/Dockerfile
           push: true
-          tags: tito1234/primerjalnik_cen:DBNapolni${{steps.time.outputs.time}}
+          tags: tito1234/primerjalnik_cen:SpletniVmesnik${{steps.time.outputs.time}} 
+          
+      - name: Build and Push the Docker image PridobivanjePodatkov
+        uses: docker/build-push-action@v3
+        with:
+          file: ./PridobivanjePodatkov/Dockerfile
+          push: true
+          tags: tito1234/primerjalnik_cen:PridobivanjePodatkov${{steps.time.outputs.time}} 
 
