@@ -18,16 +18,17 @@ import psycopg2
 import pandas as pd
 from connections import start_connDB
 from prometheus_client import Counter, Summary, Gauge
+import os
 
 class PridobivanjePodatkov(Resource):
     def get(self):
         try:
             conn = start_connDB()
             cur = conn.cursor()
-            dat_izdelkov = "/Users/damijanrandl/Downloads/izdelki.txt"
+            dat_izdelkov = "PridobivanjePodatkov/datoteke/izdelki.txt"
             tab_izdelkov = self.datoteka_v_tabelo(dat_izdelkov) 
             slovar_izdelkov = self.pridobivanje_cen_izdelkov(tab_izdelkov)
-            datoteka = self.slovar_v_sql(slovar_izdelkov, "Izdelki", "/Users/damijanrandl/Downloads/insert_stavki.txt")
+            datoteka = self.slovar_v_sql(slovar_izdelkov, "Izdelki", "PridobivanjePodatkov/datoteke/insert_stavki.txt")
             self.izprazni_bazo(cur, "Izdelki")
             self.napolni_bazo(cur, datoteka)
             cur.close()
