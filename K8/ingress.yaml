@@ -56,23 +56,23 @@ spec:
                   number: 5003
 
 ---
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  namespace: ingress-nginx
-  name: ingress-static
-  annotations:
-    nginx.ingress.kubernetes.io/ssl-redirect: "false"
-    nginx.ingress.kubernetes.io/rewrite-target: /static/$2
-spec:
-  ingressClassName: nginx
-  rules:
-  - http:
-      paths:
-      - path: /static(/|$)(.*)
-        pathType: Prefix
-        backend:
-          service:
-            name: aks-helloworld-one
-            port: 
-              number: 80
+# apiVersion: networking.k8s.io/v1
+# kind: Ingress
+# metadata:
+#   namespace: ingress-nginx
+#   name: ingress-static
+#   annotations:
+#     nginx.ingress.kubernetes.io/ssl-redirect: "false"
+#     nginx.ingress.kubernetes.io/rewrite-target: /static/$2
+# spec:
+#   ingressClassName: nginx
+#   rules:
+#   - http:
+#       paths:
+#       - path: /static(/|$)(.*)
+#         pathType: Prefix
+#         backend:
+#           service:
+#             name: aks-helloworld-one
+#             port: 
+#               number: 80
