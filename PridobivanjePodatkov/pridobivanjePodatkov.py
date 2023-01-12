@@ -85,7 +85,7 @@ class PridobivanjePodatkov(Resource):
         options = Options()
         options.add_argument("--headless")
         slovar_izdelkov = {}
-        brskalnik = webdriver.Chrome(options=options)
+        brskalnik = webdriver.Chrome(options=options, executable_path='/PridobivanjePodatkov/chrome/chromedriver.exe')
         for izdelek in izdelki:
             # url-ji za posamezne spletne trgovine
             mercator_url = f"https://trgovina.mercator.si/market/brskaj#search={izdelek}"
