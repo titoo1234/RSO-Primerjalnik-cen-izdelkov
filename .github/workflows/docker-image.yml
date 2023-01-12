@@ -63,7 +63,7 @@ jobs:
         with:
           file: ./SpletniVmesnik/Dockerfile
           push: true
-          tags: tito1234/primerjalnik_cen:SpletniVmesnik5
+          tags: tito1234/primerjalnik_cen:SpletniVmesnik6
           
       - name: Build and Push the Docker image PridobivanjePodatkov
         uses: docker/build-push-action@v3
