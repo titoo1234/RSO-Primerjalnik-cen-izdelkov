@@ -30,13 +30,13 @@ def health_user():
 def break_ms():
     global broken
     broken = True
-    return "You broke the microservice user"
+    return "You broke the microservice kosarica"
 
 @app.route("/kosarica/unbreak")
 def unbreak_ms():
     global broken
     broken = False
-    return "You revived the microservice user"
+    return "You revived the microservice kosarica"
 
 if __name__ == '__main__':
     app.run(debug=False, host="0.0.0.0", port=5006)

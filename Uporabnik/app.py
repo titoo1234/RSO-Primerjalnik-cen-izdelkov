@@ -14,12 +14,28 @@ import config
 from funkcije_uporabnik import *
 
 
-#import logging
+import logging
+from logstash_async.handler import AsynchronousLogstashHandler
+from logstash_async.handler import LogstashFormatter
 
 #resources
 from uporabnik import Uporabnik
 #from uporabniki import Uporabniki
 from dodajUporabnika import AddUser
+
+logger = logging.getLogger("logstash")
+logger.setLevel(logging.INFO)
+
+handler = AsynchronousLogstashHandler(
+    host='bf7b5e36-738d-4386-ab05-bc490b2f0abc-ls.logit.io', 
+    port=23757,  
+    ssl_verify=False,
+    database_path='')
+
+formatter = LogstashFormatter()
+handler.setFormatter(formatter)
+
+logger.addHandler(handler)
 
 broken = False
 
@@ -56,6 +72,7 @@ def health_user():
 def break_ms():
     global broken
     broken = True
+    logger.warning(f'you broke microservice user')
     return "You broke the microservice user"
 
 @app.route("/user/unbreak")

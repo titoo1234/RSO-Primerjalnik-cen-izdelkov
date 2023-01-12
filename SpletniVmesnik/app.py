@@ -47,30 +47,30 @@ def naslovna():
     #app.logger.error('python-logstash-async: test info message.')
     #logger.warning('python-logstash-async: test warning message.')
     #logger.debug('python-logstash-async: test debug message.')
-    # api_url = "http://127.0.0.1:5003/katalog" # TO DELA
-    # response = requests.get(api_url)
-    # vsi_izdelki = json_to_table(response.json())
-    # vsi_izdelki = list(set(vsi_izdelki[0]))
+    api_url = "http://127.0.0.1:5003/katalog" # TO DELA
+    response = requests.get(api_url)
+    vsi_izdelki = json_to_table(response.json())
+    vsi_izdelki = list(set(vsi_izdelki[0]))
 
     mesto,temp,vreme,slika = vreme_podatki()
 
-    vsi_izdelki = ['Mleko','Kruh','Špageti']
+    #vsi_izdelki = ['Mleko','Kruh','Špageti']
 
     return render_template('zacetna_stran.html',izdelki=vsi_izdelki, uporabniskoIme=get_user(),mesto=mesto,temp=temp,vreme=vreme,slika=slika)#'osnova_spletnega_vmesnika.html'
 
 
 @app.route('/SV/izdelek/<izdelek>')
 def izdelek(izdelek):
-    # api_url = f"http://127.0.0.1:5005/izdelek/{izdelek}" #DELA
-    # response = requests.get(api_url)
-    # vsi_izdelki = json_to_table(response.json())
-    # trgovine = list(set(vsi_izdelki[1]))
-    # cene = list(set(vsi_izdelki[2]))
+    api_url = f"http://127.0.0.1:80/izdelek/{izdelek}" #DELA
+    response = requests.get(api_url)
+    vsi_izdelki = json_to_table(response.json())
+    trgovine = list(set(vsi_izdelki[1]))
+    cene = list(set(vsi_izdelki[2]))
     logger.info(f'izdelek {izdelek}')
 
     slika_url = poisci_url(izdelek)
-    trgovine=['Tuš','Mercator','Spar']
-    cene = [1.21,1.52,1.54]
+    #trgovine=['Tuš','Mercator','Spar']
+    #cene = [1.21,1.52,1.54]
     zip1 = zip(trgovine,cene)
     return render_template('izdelek.html', zip = zip1,slika = slika_url,izdelek = izdelek,uporabniskoIme=get_user())#'osnova_spletnega_vmesnika.html'
 
@@ -139,6 +139,7 @@ def login():
 def login_post():
     '''Obdelaj izpolnjeno formo za prijavo'''
     uporabniskoIme = request.form['uporabniskoIme']
+    logger.info(f'poskus prijave {uporabniskoIme}')
     geslo = password_md5(request.form['geslo']) #zakodiramo
 
     api_url = f"http://127.0.0.1:5002/user/login"
@@ -178,7 +179,7 @@ def register():
 def register_post():
     '''Registrira novega uporabnika.'''
     uporabniskoIme = request.form['uporabniskoIme']
-    print("ASSDSADDSDASDFSF")
+    logger.info(f'poskus registracije {uporabniskoIme}')
     geslo1 = request.form['geslo1']
     geslo2 = request.form['geslo2']
     if not geslo1 == geslo2:

@@ -37,13 +37,13 @@ def health_user():
 def break_ms():
     global broken
     broken = True
-    return "You broke the microservice user"
+    return "You broke the microservice primerjava cen"
 
 @app.route("/izdelek/unbreak")
 def unbreak_ms():
     global broken
     broken = False
-    return "You revived the microservice user"
+    return "You revived the microservice primerjava cen"
 
 if __name__ == '__main__':
     app.run(debug=False, host="0.0.0.0", port=5005)

@@ -14,3 +14,4 @@ flask_sqlalchemy==3.0.2
 psycopg2==2.9.5
 flask_restx==1.0.3
 prometheus_flask_exporter==0.21.0
+python-logstash-async==2.5.0
