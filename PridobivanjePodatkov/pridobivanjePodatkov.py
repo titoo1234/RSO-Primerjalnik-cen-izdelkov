@@ -19,6 +19,7 @@ import pandas as pd
 from connections import start_connDB
 from prometheus_client import Counter, Summary, Gauge
 import os
+from webdriver_manager.chrome import ChromeDriverManager
 
 class PridobivanjePodatkov(Resource):
     def get(self):
@@ -85,7 +86,7 @@ class PridobivanjePodatkov(Resource):
         options = Options()
         options.add_argument("--headless")
         slovar_izdelkov = {}
-        brskalnik = webdriver.Chrome(options=options, executable_path='/PridobivanjePodatkov/chrome/chromedriver.exe')
+        # brskalnik = webdriver.Chrome(ChromeDriverManager().install(), options=options)
         for izdelek in izdelki:
             # url-ji za posamezne spletne trgovine
             mercator_url = f"https://trgovina.mercator.si/market/brskaj#search={izdelek}"
@@ -96,6 +97,7 @@ class PridobivanjePodatkov(Resource):
             slika_src = ""
             try:
                 # MERCATOR:
+                brskalnik = webdriver.Chrome(ChromeDriverManager().install(), options=options)
                 wait = WebDriverWait(brskalnik, 20)
                 brskalnik.get(mercator_url)
                 # pobrisemo pojavna okenca (cookie, adds), da pridemo do dejanske spletne strani
@@ -111,7 +113,7 @@ class PridobivanjePodatkov(Resource):
                 continue
             try:
                 # ŠPAR:
-                brskalnik = webdriver.Chrome(options=options)
+                brskalnik = webdriver.Chrome(ChromeDriverManager().install(), options=options)
                 wait = WebDriverWait(brskalnik, 20)
                 brskalnik.get(spar_url)
                 try:
@@ -129,7 +131,7 @@ class PridobivanjePodatkov(Resource):
                 continue
             try:
                 # TUŠ:
-                brskalnik = webdriver.Chrome(options=options)
+                brskalnik = webdriver.Chrome(ChromeDriverManager().install(), options=options)
                 wait = WebDriverWait(brskalnik, 20)
                 brskalnik.get(tus_url)
                 izdelek_tus_tab = wait.until(EC.visibility_of_all_elements_located((By.XPATH, '/html/body/div[1]/main/section[1]/div/div/div/div/div[2]/ul/li[1]/div/span[1]')))

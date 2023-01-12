@@ -16,3 +16,4 @@ flask_restx==1.0.3
 prometheus_flask_exporter==0.21.0
 lxml==4.9.2
 selenium==4.7.2
+webdriver-maneger==3.8.5
