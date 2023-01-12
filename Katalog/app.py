@@ -7,15 +7,7 @@ from prometheus_flask_exporter import PrometheusMetrics
 import connections
 broken = False
 from catalog import Catalog
-from test import Test
-# def create_app():
-#     app = Flask(__name__)
-#     api = Api(app, doc='/openapi')
-#     api.add_resource(Uporabnik, '/user', '/user/<int:id>')#, '/user/<int:id>')
-#     #api.add_resource(Uporabniki, '/users')
-#     #api.add_resource(AddUser, '/add_user')
-#     api.add_resource(AddUser, '/user/add')
-#     return app
+
 
 def create_app():
     app = Flask(__name__)

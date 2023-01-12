@@ -13,6 +13,25 @@ import psycopg2
 import pandas as pd
 from connections import start_connDB
 from prometheus_client import Counter, Summary, Gauge
+import logging
+from logstash_async.handler import AsynchronousLogstashHandler
+from logstash_async.handler import LogstashFormatter
+import config
+
+logger = logging.getLogger("logstash")
+logger.setLevel(logging.INFO)
+
+handler = AsynchronousLogstashHandler(
+    host=config.logurl, 
+    port=23757,  
+    ssl_verify=False,
+    database_path='')
+
+formatter = LogstashFormatter()
+handler.setFormatter(formatter)
+
+logger.addHandler(handler)
+
 requests_total = Counter('flask_http_requests_total', 'VSI KLICI NA /user/<id>', ['method', 'endpoint'])
 requests_summary = Summary('flask_http_requests_per_second', 'ŠTO NEVEM VEČ KA POMENI', ['method', 'endpoint'])
 
@@ -48,7 +67,7 @@ class Kosarica(Resource):
             #print(tab_cen)
             df = pd.read_sql_query(f"SELECT id FROM uporabniki WHERE ime = '{ime}'", conn)
             id = df.to_dict("records")[0]["id"]
-            
+            logger.info(f'added izdelek {izdelek} for user {ime}')
             query1 = f"INSERT INTO kosarica values ({id},'{izdelek}','Mercator',{kolicina},{cena1});"#SELECT * FROM Uporabniki Where {id} = Id
             query2 = f"INSERT INTO kosarica values ({id},'{izdelek}','Spar',{kolicina},{cena2});"#SELECT * FROM Uporabniki Where {id} = Id
             query3 = f"INSERT INTO kosarica values ({id},'{izdelek}','Tuš',{kolicina},{cena3});"#SELECT * FROM Uporabniki Where {id} = Id
@@ -72,6 +91,7 @@ class Kosarica(Resource):
         id = df.to_dict("records")[0]["id"]
         cur = conn.cursor()
         cur.execute(f"DELETE FROM kosarica WHERE uporabnik={id}")
+        logger.info(f'deleted kosarica for user {ime}')
         cur.close()
         conn.close()
         return [True], 200

@@ -48,7 +48,7 @@
 	
 	</tbody>
 </table>
-
+{%if uporabniskoIme != None:%}
 <form action="/SV/button">
 	<label for="fname">Količina:</label><br>
 	
@@ -56,4 +56,5 @@
 	<input type="hidden" id="izdelek" name="izdelek" value={{izdelek}}><br>
 	<input type="submit" value="Dodaj v kosarico">
   </form> 
+  {%endif%}
 {% endblock %}

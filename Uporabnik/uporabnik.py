@@ -17,7 +17,7 @@ import connections
 
 from prometheus_client import Counter, Summary, Gauge
 requests_total = Counter('flask_http_requests_total', 'VSI KLICI NA /user/<id>', ['method', 'endpoint'])
-requests_summary = Summary('flask_http_requests_per_second', 'ŠTO NEVEM VEČ KA POMENI', ['method', 'endpoint'])
+requests_summary = Summary('flask_http_requests_per_second', 'VSI KLICI NA SEKUNDO NA /user/<id>', ['method', 'endpoint'])
 #requests_gauge = Gauge('flask_http_request_latency_mean_seconds', 'POVPREČJE', ['method', 'endpoint'])
 
 class Uporabnik(Resource):

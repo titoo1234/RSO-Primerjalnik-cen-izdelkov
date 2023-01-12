@@ -10,7 +10,8 @@ from kosarica import Kosarica
 
 def create_app():
     app = Flask(__name__)
-    api = Api(app)
+    #api = Api(app)
+    api = Api(app, doc='/kosarica/swagger')
     api.add_resource(Kosarica, '/kosarica/<string:ime>')
     # api.add_resource(Kosarica, '/kosarica/<int:id>')
     return app

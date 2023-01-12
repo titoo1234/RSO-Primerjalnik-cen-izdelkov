@@ -7,6 +7,7 @@ from prometheus_flask_exporter import PrometheusMetrics
 from bs4 import BeautifulSoup
 import hashlib
 from funkcije_SV import *
+import config
 
 
 import logging
@@ -17,7 +18,7 @@ logger = logging.getLogger("logstash")
 logger.setLevel(logging.INFO)
 
 handler = AsynchronousLogstashHandler(
-    host='bf7b5e36-738d-4386-ab05-bc490b2f0abc-ls.logit.io', 
+    host=config.logurl, 
     port=23757,  
     ssl_verify=False,
     database_path='')
@@ -33,6 +34,7 @@ secret = 'skrivnost'
 
 def create_app():
     app = Flask(__name__)
+    api = Api(app, doc='/SV/swagger')
     #api = Api(app)
    # api.add_resource(Catalog, '/katalog')
     return app
@@ -67,7 +69,7 @@ def izdelek(izdelek):
     response = requests.get(api_url)
     vsi_izdelki = json_to_table(response.json())
     trgovine = list(set(vsi_izdelki[1]))
-    cene = list(set(vsi_izdelki[2]))
+    cene = list(vsi_izdelki[2])#BREZ SETA
     logger.info(f'izdelek {izdelek}')
 
     slika_url = poisci_url(izdelek)
@@ -116,12 +118,15 @@ def kosarica():
     #Kolicina = [1,1,1]
     #Cena = [1.12,1.13,2.14]
     rez = []
+    skupne = [0, 0, 0]
     for i in range(0, len(Izdelki), 3):
         rez.append((Izdelki[i], Kolicine[i], Cene[i], Cene[i + 1],Cene[i + 2]))
-
+        skupne[0] += Cene[i]
+        skupne[1] += Cene[i + 1]
+        skupne[2] += Cene[i + 2]
     #zip1 = zip(Izdelek,Kolicina,Cena)
     #uporabniskoIme = get_user()
-    return render_template('kosarica.html', zip = rez, uporabniskoIme = uporabnik)#'osnova_spletnega_vmesnika.html'
+    return render_template('kosarica.html', zip = rez, uporabniskoIme = uporabnik, skupne = skupne)#'osnova_spletnega_vmesnika.html'
 
 @app.route('/SV/buttonZbrisiKosarico')
 def zbrisiKosarico():

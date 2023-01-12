@@ -27,7 +27,7 @@ logger = logging.getLogger("logstash")
 logger.setLevel(logging.INFO)
 
 handler = AsynchronousLogstashHandler(
-    host='bf7b5e36-738d-4386-ab05-bc490b2f0abc-ls.logit.io', 
+    host=config.logurl, 
     port=23757,  
     ssl_verify=False,
     database_path='')
@@ -41,7 +41,7 @@ broken = False
 
 def create_app():
     app = Flask(__name__)
-    api = Api(app, doc='/openapi')
+    api = Api(app, doc='/user/swagger')
     api.add_resource(Uporabnik, '/user', '/user/<int:id>')#, '/user/<int:id>')
     #api.add_resource(Uporabniki, '/users')
     #api.add_resource(AddUser, '/add_user')
@@ -63,8 +63,19 @@ def health_user():
     # neki simetričnega bi naredili za readiness pa še na eni mikrostoritvi
     #if not broken and dela_pozevaz
     global broken
-    if not broken and connections.check_connDB():#dodaj da preveri povezavo na bazo
-        return "Ok", 200
+    if not broken and connections.check_connDB():
+        try:
+            query = "SELECT Ime FROM Uporabniki WHERE id = 21;"
+            conn = connections.start_connDB()
+            df = pd.read_sql_query(query, conn)
+            result = df.to_dict("records")
+            ime = df["ime"][0]
+            conn.close()
+            if ime != "admin":
+                return "Unhealthy", 500
+            return "Ok", 200
+        except:
+            return "Unhealthy", 500
     else:
         return "Unhealthy", 500
 
