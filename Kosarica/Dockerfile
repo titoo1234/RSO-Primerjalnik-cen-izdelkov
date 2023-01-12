@@ -11,6 +11,8 @@ RUN pip install --upgrade pip
 # install the dependencies and packages in the requirements file
 RUN pip install -r requirements.txt
 
+RUN pip install flask[async]
+
 #RUN pip uninstall -y pyjwt
 #RUN pip install pyjwt
 

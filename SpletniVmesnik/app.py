@@ -8,6 +8,7 @@ from bs4 import BeautifulSoup
 import hashlib
 from funkcije_SV import *
 import config
+import asyncio
 
 
 import logging
@@ -80,8 +81,7 @@ def izdelek(izdelek):
 
 
 @app.route('/SV/button')
-def dodaj_v_kosarico():
-    
+async def dodaj_v_kosarico():
     uporabnik = get_user()
     #api_url = f"http://127.0.0.1:5006/kosarica/{uporabnik}"
     api_url = f"http://20.74.91.160:80/kosarica/{uporabnik}"
@@ -89,6 +89,11 @@ def dodaj_v_kosarico():
     ime = request.args.get("izdelek")
     data = {'kolicina':kolicina,'izdelek':ime}
     response = requests.post(api_url,json=data)
+    #loop=asyncio.get_event_loop()
+    #response = await loop.run_until_complete(requests.post(api_url,json=data, timeout=30))
+
+    
+    
     #print(response.json)
     #print(ime)
     #kolicina.
