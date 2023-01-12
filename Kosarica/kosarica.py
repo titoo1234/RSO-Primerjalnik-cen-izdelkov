@@ -48,7 +48,7 @@ class Kosarica(Resource):
         except Exception as e:
             "Error: " + str(e), 500
 
-    def post(self,ime):#,izdelek,trgovina,kolicina,cena
+    def post(self,ime):#async
         try:
             #print("tuki smo")
             
