@@ -108,9 +108,10 @@ def kosarica():
     response = requests.get(api_url)
     response = response.json()
     slika_url = poisci_url(izdelek)
+    skupne = [0, 0, 0]
     vse_tabele = json_to_table(response)
     if vse_tabele == []:
-        return render_template('kosarica.html', zip = [], uporabniskoIme = uporabnik)
+        return render_template('kosarica.html', zip = [], uporabniskoIme = uporabnik,skupne = skupne)
     Izdelki = vse_tabele[0]
     Kolicine = vse_tabele[1]
     Cene = vse_tabele[2]
@@ -118,7 +119,7 @@ def kosarica():
     #Kolicina = [1,1,1]
     #Cena = [1.12,1.13,2.14]
     rez = []
-    skupne = [0, 0, 0]
+    
     for i in range(0, len(Izdelki), 3):
         rez.append((Izdelki[i], Kolicine[i], Cene[i], Cene[i + 1],Cene[i + 2]))
         skupne[0] += Cene[i]

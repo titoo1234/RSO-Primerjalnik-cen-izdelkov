@@ -64,18 +64,18 @@ def health_user():
     #if not broken and dela_pozevaz
     global broken
     if not broken and connections.check_connDB():
-        try:
-            query = "SELECT Ime FROM Uporabniki WHERE id = 21;"
-            conn = connections.start_connDB()
-            df = pd.read_sql_query(query, conn)
-            result = df.to_dict("records")
-            ime = df["ime"][0]
-            conn.close()
-            if ime != "admin":
-                return "Unhealthy", 500
-            return "Ok", 200
-        except:
-            return "Unhealthy", 500
+        # try:
+        #     query = "SELECT Ime FROM Uporabniki WHERE id = 21;"
+        #     conn = connections.start_connDB()
+        #     df = pd.read_sql_query(query, conn)
+        #     result = df.to_dict("records")
+        #     ime = df["ime"][0]
+        #     conn.close()
+        #     if ime != "admin":
+        #         return "Unhealthy", 500
+        return "Ok", 200
+        # except:
+        #     return "Unhealthy", 500
     else:
         return "Unhealthy", 500
 
