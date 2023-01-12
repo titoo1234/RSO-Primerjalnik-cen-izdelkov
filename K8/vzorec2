@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: ingress-nginx
+  name: appspletnivmesnik
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: appspletnivmesnik
+  template:
+    metadata:
+      labels:
+        app: appspletnivmesnik
+    spec:
+      containers:
+      - name: appspletnivmesnik
+        image: tito1234/primerjalnik_cen:SpletniVmesnik1
+        ports:
+        - containerPort: 5004
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: ingress-nginx
+  name: appspletnivmesnik
+spec:
+  type: ClusterIP
+  ports:
+  - port: 5004
+  selector:
+    app: appspletnivmesnik
