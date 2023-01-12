@@ -47,7 +47,8 @@ def naslovna():
     #app.logger.error('python-logstash-async: test info message.')
     #logger.warning('python-logstash-async: test warning message.')
     #logger.debug('python-logstash-async: test debug message.')
-    api_url = "http://127.0.0.1:5003/katalog" # TO DELA
+    #api_url = "http://127.0.0.1:5003/katalog" # TO DELA
+    api_url = "http://20.74.91.160:80/katalog"
     response = requests.get(api_url)
     vsi_izdelki = json_to_table(response.json())
     vsi_izdelki = list(set(vsi_izdelki[0]))
@@ -61,7 +62,8 @@ def naslovna():
 
 @app.route('/SV/izdelek/<izdelek>')
 def izdelek(izdelek):
-    api_url = f"http://127.0.0.1:80/izdelek/{izdelek}" #DELA
+    #api_url = f"http://127.0.0.1:80/izdelek/{izdelek}" #DELA
+    api_url = f"http://20.74.91.160:80/izdelek/{izdelek}"
     response = requests.get(api_url)
     vsi_izdelki = json_to_table(response.json())
     trgovine = list(set(vsi_izdelki[1]))
@@ -79,7 +81,8 @@ def izdelek(izdelek):
 def dodaj_v_kosarico():
     
     uporabnik = get_user()
-    api_url = f"http://127.0.0.1:5006/kosarica/{uporabnik}"
+    #api_url = f"http://127.0.0.1:5006/kosarica/{uporabnik}"
+    api_url = f"http://20.74.91.160:80/kosarica/{uporabnik}"
     kolicina = int(request.args.get("kolicina"))
     ime = request.args.get("izdelek")
     data = {'kolicina':kolicina,'izdelek':ime}
@@ -97,7 +100,8 @@ def kosarica():
 
     # TODO preveri ali je pravi uporabnik... 
     uporabnik = get_user()
-    api_url = f"http://127.0.0.1:5006/kosarica/{uporabnik}"
+    #api_url = f"http://127.0.0.1:5006/kosarica/{uporabnik}"
+    api_url = f"http://20.74.91.160:80/kosarica/{uporabnik}"
     
     response = requests.get(api_url)
     response = response.json()
@@ -123,7 +127,8 @@ def kosarica():
 def zbrisiKosarico():
     #api_url = f"http://127.0.0.1:5005/katalog/{izdelek}"
     uporabnik = get_user()
-    api_url = f"http://127.0.0.1:5006/kosarica/{uporabnik}"
+    #api_url = f"http://127.0.0.1:5006/kosarica/{uporabnik}"
+    api_url = f"http://20.74.91.160:80/kosarica/{uporabnik}"
 
     response = requests.delete(api_url)
 
@@ -142,7 +147,8 @@ def login_post():
     logger.info(f'poskus prijave {uporabniskoIme}')
     geslo = password_md5(request.form['geslo']) #zakodiramo
 
-    api_url = f"http://127.0.0.1:5002/user/login"
+    #api_url = f"http://127.0.0.1:5002/user/login"
+    api_url = f"http://20.74.91.160:80/user/login"
     data = {'username': uporabniskoIme, 'password':geslo}
     response = requests.get(api_url,json=data)
     #response = response.json
@@ -187,7 +193,8 @@ def register_post():
     else:
         
         geslo = password_md5(geslo1)
-        api_url = f"http://127.0.0.1:5002/user/add"
+        #api_url = f"http://127.0.0.1:5002/user/add"
+        api_url = f"http://20.74.91.160:80/user/add"
         data = {'username': uporabniskoIme, 'password':geslo}
         response = requests.post(api_url,json=data)
         response = response.json()
