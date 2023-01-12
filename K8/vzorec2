@@ -18,6 +18,8 @@ spec:
         image: tito1234/primerjalnik_cen:SpletniVmesnik1
         ports:
         - containerPort: 5004
+          name: server
+          protocol: TCP   
 ---
 apiVersion: v1
 kind: Service
@@ -28,5 +30,7 @@ spec:
   type: ClusterIP
   ports:
   - port: 5004
+    protocol: TCP
+    targetPort: server
   selector:
     app: appspletnivmesnik
