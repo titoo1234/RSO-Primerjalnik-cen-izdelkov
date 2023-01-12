@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: appkatalog
-        image: tito1234/primerjalnik_cen:Katalog1
+        image: tito1234/primerjalnik_cen:Katalog7
         ports:
         - containerPort: 5003
 ---
@@ -50,7 +50,7 @@ spec:
     spec:
       containers:
       - name: appspletnivmesnik
-        image: tito1234/primerjalnik_cen:SpletniVmesnik1
+        image: tito1234/primerjalnik_cen:SpletniVmesnik7
         ports:
         - containerPort: 5004
 ---
@@ -85,7 +85,7 @@ spec:
     spec:
       containers:
       - name: appkosarica
-        image: tito1234/primerjalnik_cen:Kosarica1
+        image: tito1234/primerjalnik_cen:Kosarica7
         ports:
         - containerPort: 5006
 ---
@@ -120,7 +120,7 @@ spec:
     spec:
       containers:
       - name: apppridobivanjepodatkov
-        image: tito1234/primerjalnik_cen:PridobivanjePodatkov1
+        image: tito1234/primerjalnik_cen:PridobivanjePodatkov7
         ports:
         - containerPort: 5008
 ---
@@ -155,7 +155,7 @@ spec:
     spec:
       containers:
       - name: appprimerjavacen
-        image: tito1234/primerjalnik_cen:PrimerjavaCen1
+        image: tito1234/primerjalnik_cen:PrimerjavaCen7
         ports:
         - containerPort: 5005
 ---
@@ -190,9 +190,15 @@ spec:
     spec:
       containers:
       - name: appuporabnik
-        image: tito1234/primerjalnik_cen:Uporabnik1
+        image: tito1234/primerjalnik_cen:Uporabnik7
         ports:
         - containerPort: 5002
+        livenessProbe:
+            httpGet:
+              path: /user/health
+              port: 5002
+            initialDelaySeconds: 20
+            periodSeconds: 3
 ---
 apiVersion: v1
 kind: Service

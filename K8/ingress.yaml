@@ -2,7 +2,7 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   namespace: ingress-nginx
-  name: hello-world-ingress
+  name: ingress-primerjava-cen
   annotations:
     nginx.ingress.kubernetes.io/ssl-redirect: "false"
     nginx.ingress.kubernetes.io/use-regex: "true"
@@ -60,7 +60,7 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   namespace: ingress-nginx
-  name: hello-world-ingress-static
+  name: ingress-static
   annotations:
     nginx.ingress.kubernetes.io/ssl-redirect: "false"
     nginx.ingress.kubernetes.io/rewrite-target: /static/$2
