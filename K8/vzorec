@@ -1,0 +1,207 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: ingress-nginx
+  name: appkatalog
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: appkatalog
+  template:
+    metadata:
+      labels:
+        app: appkatalog
+    spec:
+      containers:
+      - name: appkatalog
+        image: tito1234/primerjalnik_cen:Katalog1
+        ports:
+        - containerPort: 5003
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: ingress-nginx
+  name: appkatalog
+spec:
+  type: ClusterIP
+  ports:
+  - port: 5003
+  selector:
+    app: appkatalog
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: ingress-nginx
+  name: appspletnivmesnik
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: appspletnivmesnik
+  template:
+    metadata:
+      labels:
+        app: appspletnivmesnik
+    spec:
+      containers:
+      - name: appspletnivmesnik
+        image: tito1234/primerjalnik_cen:SpletniVmesnik1
+        ports:
+        - containerPort: 5004
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: ingress-nginx
+  name: appspletnivmesnik
+spec:
+  type: ClusterIP
+  ports:
+  - port: 5004
+  selector:
+    app: appspletnivmesnik
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: ingress-nginx
+  name: appkosarica
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: appkosarica
+  template:
+    metadata:
+      labels:
+        app: appkosarica
+    spec:
+      containers:
+      - name: appkosarica
+        image: tito1234/primerjalnik_cen:Kosarica1
+        ports:
+        - containerPort: 5006
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: ingress-nginx
+  name: appkosarica
+spec:
+  type: ClusterIP
+  ports:
+  - port: 5006
+  selector:
+    app: appkosarica
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: ingress-nginx
+  name: apppridobivanjepodatkov
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: apppridobivanjepodatkov
+  template:
+    metadata:
+      labels:
+        app: apppridobivanjepodatkov
+    spec:
+      containers:
+      - name: apppridobivanjepodatkov
+        image: tito1234/primerjalnik_cen:PridobivanjePodatkov1
+        ports:
+        - containerPort: 5008
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: ingress-nginx
+  name: apppridobivanjepodatkov
+spec:
+  type: ClusterIP
+  ports:
+  - port: 5008
+  selector:
+    app: apppridobivanjepodatkov
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: ingress-nginx
+  name: appprimerjavacen
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: appprimerjavacen
+  template:
+    metadata:
+      labels:
+        app: appprimerjavacen
+    spec:
+      containers:
+      - name: appprimerjavacen
+        image: tito1234/primerjalnik_cen:PrimerjavaCen1
+        ports:
+        - containerPort: 5005
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: ingress-nginx
+  name: appprimerjavacen
+spec:
+  type: ClusterIP
+  ports:
+  - port: 5005
+  selector:
+    app: appprimerjavacen
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: ingress-nginx
+  name: appuporabnik
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: appuporabnik
+  template:
+    metadata:
+      labels:
+        app: appuporabnik
+    spec:
+      containers:
+      - name: appuporabnik
+        image: tito1234/primerjalnik_cen:Uporabnik1
+        ports:
+        - containerPort: 5002
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: ingress-nginx
+  name: appuporabnik
+spec:
+  type: ClusterIP
+  ports:
+  - port: 5002
+  selector:
+    app: appuporabnik

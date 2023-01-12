@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: ingress-nginx
+  name: appuporabnik
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: appuporabnik
+  template:
+    metadata:
+      labels:
+        app: appuporabnik
+    spec:
+      containers:
+      - name: appuporabnik
+        image: tito1234/primerjalnik_cen:Uporabnik1
+        ports:
+        - containerPort: 5002
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: ingress-nginx
+  name: appuporabnik
+spec:
+  type: ClusterIP
+  ports:
+  - port: 5002
+  selector:
+    app: appuporabnik

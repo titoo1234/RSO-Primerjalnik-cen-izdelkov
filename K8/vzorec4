@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: ingress-nginx
+  name: apppridobivanjepodatkov
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: apppridobivanjepodatkov
+  template:
+    metadata:
+      labels:
+        app: apppridobivanjepodatkov
+    spec:
+      containers:
+      - name: apppridobivanjepodatkov
+        image: tito1234/primerjalnik_cen:PridobivanjePodatkov1
+        ports:
+        - containerPort: 5008
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: ingress-nginx
+  name: apppridobivanjepodatkov
+spec:
+  type: ClusterIP
+  ports:
+  - port: 5008
+  selector:
+    app: apppridobivanjepodatkov
